@@ -1,0 +1,1863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bivora Educational Center - Official Website</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-gradient: linear-gradient(135deg, #e8f0fe 0%, #f0e6ff 25%, #e0f2f1 50%, #fce4ec 75%, #f3e5f5 100%);
+            --bg-orb-teal: rgba(13, 148, 136, 0.12);
+            --bg-orb-blue: rgba(99, 102, 241, 0.10);
+            --bg-orb-purple: rgba(139, 92, 246, 0.08);
+            --bg-orb-rose: rgba(244, 114, 182, 0.06);
+            --glass-bg: rgba(255, 255, 255, 0.45);
+            --glass-bg-hover: rgba(255, 255, 255, 0.65);
+            --glass-bg-light: rgba(255, 255, 255, 0.30);
+            --glass-border: rgba(255, 255, 255, 0.55);
+            --glass-border-hover: rgba(255, 255, 255, 0.75);
+            --glass-shadow: 0 15px 40px rgba(0, 0, 0, 0.06);
+            --glass-blur: blur(25px) saturate(180%);
+            --navbar-bg: rgba(255, 255, 255, 0.55);
+            --navbar-border: rgba(255, 255, 255, 0.65);
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --input-bg: rgba(255, 255, 255, 0.55);
+            --input-border: rgba(0, 0, 0, 0.08);
+            --input-focus-border: #0d9488;
+            --list-bg: rgba(255, 255, 255, 0.40);
+            --list-hover: rgba(255, 255, 255, 0.60);
+            --list-border: rgba(0, 0, 0, 0.04);
+            --modal-bg: rgba(255, 255, 255, 0.80);
+            --modal-overlay: rgba(0, 0, 0, 0.25);
+            --btn-glass: rgba(255, 255, 255, 0.45);
+            --btn-glass-hover: rgba(255, 255, 255, 0.65);
+            --badge-paid-bg: rgba(16, 185, 129, 0.10);
+            --badge-unpaid-bg: rgba(239, 68, 68, 0.08);
+            --accent-teal: #0d9488;
+            --accent-blue: #6366f1;
+            --accent-purple: #8b5cf6;
+            --accent-rose: #f472b6;
+            --accent-amber: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --footer-bg: rgba(255, 255, 255, 0.55);
+            --footer-text: #64748b;
+            --footer-border: rgba(0, 0, 0, 0.06);
+        }
+
+        .dark-mode {
+            --bg-gradient: linear-gradient(135deg, #0f1724 0%, #131b2e 25%, #0f1a25 50%, #1a1025 75%, #150f20 100%);
+            --bg-orb-teal: rgba(45, 212, 191, 0.06);
+            --bg-orb-blue: rgba(96, 165, 250, 0.05);
+            --bg-orb-purple: rgba(167, 139, 250, 0.04);
+            --bg-orb-rose: rgba(253, 164, 175, 0.03);
+            --glass-bg: rgba(255, 255, 255, 0.04);
+            --glass-bg-hover: rgba(255, 255, 255, 0.08);
+            --glass-bg-light: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-border-hover: rgba(255, 255, 255, 0.15);
+            --glass-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            --navbar-bg: rgba(15, 23, 36, 0.65);
+            --navbar-border: rgba(255, 255, 255, 0.06);
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --input-bg: rgba(255, 255, 255, 0.05);
+            --input-border: rgba(255, 255, 255, 0.08);
+            --input-focus-border: #2dd4bf;
+            --list-bg: rgba(255, 255, 255, 0.03);
+            --list-hover: rgba(255, 255, 255, 0.06);
+            --list-border: rgba(255, 255, 255, 0.05);
+            --modal-bg: rgba(20, 25, 40, 0.92);
+            --modal-overlay: rgba(0, 0, 0, 0.55);
+            --btn-glass: rgba(255, 255, 255, 0.06);
+            --btn-glass-hover: rgba(255, 255, 255, 0.12);
+            --badge-paid-bg: rgba(74, 222, 128, 0.10);
+            --badge-unpaid-bg: rgba(248, 113, 113, 0.08);
+            --accent-teal: #2dd4bf;
+            --accent-blue: #60a5fa;
+            --accent-purple: #a78bfa;
+            --accent-rose: #fda4af;
+            --accent-amber: #fbbf24;
+            --success: #4ade80;
+            --danger: #f87171;
+            --warning: #fbbf24;
+            --footer-bg: rgba(15, 23, 36, 0.55);
+            --footer-text: #94a3b8;
+            --footer-border: rgba(255, 255, 255, 0.06);
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+            transition: background 0.5s ease, color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body::before {
+            content: '';
+            position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: 
+                radial-gradient(ellipse at 20% 30%, var(--bg-orb-teal) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 20%, var(--bg-orb-blue) 0%, transparent 50%),
+                radial-gradient(ellipse at 40% 70%, var(--bg-orb-purple) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 60%, var(--bg-orb-rose) 0%, transparent 50%);
+            z-index: 0; animation: bgShift 30s ease-in-out infinite; pointer-events: none;
+        }
+        @keyframes bgShift { 0%,100%{transform:translate(0,0) scale(1)} 25%{transform:translate(1.5%,-1%) scale(1.02)} 50%{transform:translate(-1%,1.5%) scale(0.98)} 75%{transform:translate(0.5%,-0.5%) scale(1.01)} }
+
+        .orb { position:fixed; border-radius:50%; filter:blur(100px); opacity:0.15; pointer-events:none; z-index:0; animation:orbFloat 25s ease-in-out infinite; }
+        .dark-mode .orb { opacity:0.10; }
+        .orb-1 { width:500px; height:500px; background:var(--accent-teal); top:-150px; left:-150px; }
+        .orb-2 { width:400px; height:400px; background:var(--accent-blue); top:40%; right:-120px; animation-delay:-8s; }
+        .orb-3 { width:350px; height:350px; background:var(--accent-purple); bottom:-120px; left:25%; animation-delay:-16s; }
+        .orb-4 { width:300px; height:300px; background:var(--accent-rose); top:60%; left:50%; animation-delay:-20s; }
+        @keyframes orbFloat { 0%,100%{transform:translate(0,0)} 33%{transform:translate(40px,-30px) scale(1.15)} 66%{transform:translate(-30px,40px) scale(0.85)} }
+
+        .page { display:none; min-height:100vh; position:relative; z-index:1; flex:1; }
+        .page.active { display:flex; flex-direction:column; animation:pageIn 0.6s ease-out; }
+        @keyframes pageIn { from{opacity:0;transform:translateY(20px);filter:blur(2px)} to{opacity:1;transform:translateY(0);filter:blur(0)} }
+
+        .page-content { flex:1; }
+
+        .navbar {
+            background:var(--navbar-bg); backdrop-filter:var(--glass-blur);
+            border-bottom:1px solid var(--navbar-border); padding:14px 30px;
+            display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+            position:sticky; top:0; z-index:100; box-shadow:0 4px 30px rgba(0,0,0,0.04);
+        }
+        .logo-container { display:flex; align-items:center; gap:12px; cursor:pointer; }
+        
+        .logo-text { font-size:1.4rem; font-weight:700; color:var(--text-primary); }
+        .logo-text span { background:linear-gradient(135deg,var(--accent-teal),var(--accent-blue)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-size:0.8rem; display:block; font-weight:500; }
+        .nav-menu { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+        .nav-link { color:var(--text-secondary); padding:9px 18px; border-radius:25px; font-size:0.85rem; cursor:pointer; transition:all 0.3s; font-weight:500; background:transparent; border:1px solid transparent; }
+        .nav-link:hover { color:var(--text-primary); background:var(--glass-bg); border-color:var(--glass-border); }
+        .nav-link.active { color:var(--accent-teal); background:var(--glass-bg); border-color:var(--glass-border); font-weight:600; }
+        .btn-portals { background:rgba(13,148,136,0.12)!important; border:1px solid rgba(13,148,136,0.35)!important; color:var(--accent-teal)!important; font-weight:600!important; }
+        .dark-mode .btn-portals { background:rgba(45,212,191,0.12)!important; border:1px solid rgba(45,212,191,0.3)!important; }
+        .theme-toggle { width:42px; height:42px; border-radius:50%; background:var(--glass-bg); backdrop-filter:blur(15px); border:1px solid var(--glass-border); cursor:pointer; font-size:1.3rem; display:flex; align-items:center; justify-content:center; transition:all 0.3s; color:var(--text-primary); }
+        .theme-toggle:hover { background:var(--glass-bg-hover); transform:rotate(20deg); }
+
+        .btn { padding:11px 26px; border:none; border-radius:28px; font-weight:600; cursor:pointer; font-size:13px; transition:all 0.3s; color:var(--text-primary); backdrop-filter:blur(15px); }
+        .btn:hover { transform:translateY(-2px); box-shadow:0 8px 25px rgba(0,0,0,0.08); }
+        .btn-teal { background:rgba(13,148,136,0.12); border:1px solid rgba(13,148,136,0.3); color:var(--accent-teal); }
+        .dark-mode .btn-teal { background:rgba(45,212,191,0.12); border:1px solid rgba(45,212,191,0.3); }
+        .btn-red { background:rgba(239,68,68,0.10); border:1px solid rgba(239,68,68,0.25); color:var(--danger); }
+        .btn-blue { background:rgba(99,102,241,0.10); border:1px solid rgba(99,102,241,0.25); color:var(--accent-blue); }
+        .btn-sm { padding:6px 16px; font-size:11px; border-radius:22px; }
+        .btn-xs { padding:4px 12px; font-size:10px; border-radius:18px; }
+        .btn-back { background:var(--btn-glass); border:1px solid var(--glass-border); color:var(--text-secondary); }
+        .btn-amber { background:rgba(245,158,11,0.10); border:1px solid rgba(245,158,11,0.25); color:var(--accent-amber); }
+        .btn-pink { background:rgba(236,72,153,0.10); border:1px solid rgba(236,72,153,0.25); color:var(--accent-rose); }
+        .btn-green { background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.3); color:var(--success); }
+
+        .hero { display:flex; align-items:center; justify-content:center; min-height:85vh; text-align:center; padding:60px 20px; }
+        .hero-badge { display:inline-flex; align-items:center; gap:8px; background:var(--glass-bg); backdrop-filter:blur(20px); border:1px solid var(--glass-border); padding:10px 24px; border-radius:50px; font-size:0.9rem; color:var(--accent-teal); margin-bottom:28px; animation:float 3s ease-in-out infinite; }
+        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+        .hero-title { font-size:4rem; font-weight:800; color:var(--text-primary); }
+        .hero-title span { background:linear-gradient(135deg,var(--accent-teal),var(--accent-blue),var(--accent-purple)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+        .hero-subtitle { font-size:1.2rem; color:var(--text-secondary); margin:18px 0 36px; }
+        .section { padding:80px 20px; }
+        .section-title { text-align:center; font-size:2.5rem; font-weight:700; color:var(--text-primary); }
+        .container { max-width:1200px; margin:0 auto; }
+
+        .designer-footer {
+            background: var(--footer-bg);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--footer-border);
+            padding: 25px 30px;
+            text-align: center;
+            margin-top: auto;
+        }
+        .designer-footer .copyright {
+            color: var(--footer-text);
+            font-size: 0.8rem;
+            margin-bottom: 12px;
+        }
+        .designer-footer .designer-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+        }
+        .designer-footer .designer-photo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-teal);
+            object-fit: cover;
+            background: var(--glass-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .designer-footer .designer-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .designer-footer .designer-text {
+            text-align: left;
+        }
+        .designer-footer .designer-text .designed-by {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        .designer-footer .designer-text .designer-name {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--accent-teal);
+        }
+        .designer-footer .designer-text .designer-title {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+        .designer-footer .footer-divider {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-teal), transparent);
+            margin: 14px auto;
+        }
+
+        .photo-upload-area {
+            width: 120px; height: 120px; border-radius: 50%;
+            border: 3px dashed var(--glass-border); margin: 0 auto 20px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.3s;
+            background: var(--glass-bg-light); position: relative; overflow: hidden;
+        }
+        .photo-upload-area:hover { border-color: var(--accent-teal); background: var(--glass-bg); }
+        .photo-upload-area img { width: 100%; height: 100%; object-fit: cover; }
+        .photo-upload-area .placeholder { font-size: 2.5rem; color: var(--text-muted); }
+        .photo-upload-area .change-overlay {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: rgba(0,0,0,0.5); color: white; font-size: 0.7rem;
+            padding: 4px; text-align: center; opacity: 0; transition: opacity 0.3s;
+        }
+        .photo-upload-area:hover .change-overlay { opacity: 1; }
+
+        .portals-header { background:var(--navbar-bg); backdrop-filter:var(--glass-blur); border-bottom:1px solid var(--navbar-border); padding:14px 30px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+        .portals-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:22px; max-width:1100px; margin:50px auto; padding:0 20px; }
+        .portal-card { background:var(--glass-bg); backdrop-filter:var(--glass-blur); border:1.5px solid var(--glass-border); border-radius:24px; padding:38px 28px; cursor:pointer; transition:all 0.4s; text-align:center; }
+        .portal-card:hover { transform:translateY(-12px) scale(1.03); background:var(--glass-bg-hover); border-color:var(--glass-border-hover); }
+        .portal-icon { font-size:3.5rem; margin-bottom:16px; display:block; }
+        .portal-card h3 { font-size:1.2rem; font-weight:600; color:var(--text-primary); }
+        .portal-card p { font-size:0.8rem; color:var(--text-secondary); }
+        .portal-card.admin { border-top:4px solid var(--accent-amber); }
+        .portal-card.editor { border-top:4px solid var(--accent-rose); }
+        .portal-card.student { border-top:4px solid var(--accent-purple); }
+        .portal-card.teacher { border-top:4px solid var(--accent-teal); }
+        .portal-card.attendance { border-top:4px solid var(--accent-blue); }
+
+        .login-container { display:flex; justify-content:center; align-items:center; min-height:80vh; padding:20px; }
+        .login-box { background:var(--glass-bg); backdrop-filter:var(--glass-blur); border:1px solid var(--glass-border); border-radius:24px; padding:45px 40px; text-align:center; width:400px; max-width:95%; }
+        .login-box .icon { font-size:3.5rem; margin-bottom:16px; }
+        .login-box h2 { font-weight:700; font-size:1.6rem; color:var(--text-primary); }
+        .login-box .subtitle { color:var(--text-secondary); margin-bottom:24px; font-size:0.9rem; }
+        .login-box input { width:100%; padding:14px; background:var(--input-bg); backdrop-filter:blur(15px); border:1px solid var(--input-border); border-radius:14px; color:var(--text-primary); font-size:1rem; text-align:center; margin-bottom:14px; transition:all 0.3s; }
+        .login-box input:focus { border-color:var(--input-focus-border); outline:none; }
+        .login-box .login-btn { width:100%; padding:14px; background:rgba(13,148,136,0.15); border:1px solid rgba(13,148,136,0.35); color:var(--accent-teal); border-radius:14px; font-size:1.05rem; font-weight:700; cursor:pointer; }
+        .dark-mode .login-box .login-btn { background:rgba(45,212,191,0.12); border-color:rgba(45,212,191,0.3); }
+        .login-box .hint { margin-top:16px; font-size:0.8rem; color:var(--text-muted); background:var(--glass-bg-light); padding:10px; border-radius:10px; border:1px solid var(--glass-border); }
+        .msg { padding:12px; border-radius:12px; margin:12px 0; display:none; font-weight:600; text-align:center; font-size:0.85rem; backdrop-filter:blur(15px); }
+        .msg.success { display:block; background:var(--badge-paid-bg); border:1px solid rgba(16,185,129,0.3); color:var(--success); }
+        .msg.error { display:block; background:var(--badge-unpaid-bg); border:1px solid rgba(239,68,68,0.25); color:var(--danger); }
+
+        .dash-container { max-width:1100px; margin:40px auto; padding:0 20px; }
+        .dash-glass-box { background:var(--glass-bg); backdrop-filter:var(--glass-blur); border:1px solid var(--glass-border); border-radius:22px; padding:32px; margin-bottom:22px; }
+        .dash-glass-box h2, .dash-glass-box h3 { margin-bottom:22px; padding-bottom:14px; border-bottom:2px solid var(--glass-border); font-weight:600; color:var(--text-primary); }
+        .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+        .form-group { margin-bottom:16px; }
+        .form-group label { display:block; margin-bottom:6px; font-weight:600; font-size:0.8rem; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.5px; }
+        .form-group input, .form-group select { width:100%; padding:13px; background:var(--input-bg); backdrop-filter:blur(15px); border:1px solid var(--input-border); border-radius:12px; color:var(--text-primary); font-size:14px; font-family:inherit; transition:all 0.3s; }
+        .form-group input:focus, .form-group select:focus { border-color:var(--input-focus-border); outline:none; }
+        .form-group select option { background:#fff; color:#1e293b; }
+        .dark-mode .form-group select option { background:#1a1f2e; color:#e2e8f0; }
+
+        .id-auto-badge { display:inline-block; background:rgba(13,148,136,0.1); border:1px solid rgba(13,148,136,0.3); padding:4px 10px; border-radius:12px; font-size:11px; color:var(--accent-teal); margin-left:8px; }
+        .admin-tabs { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:28px; }
+        .admin-tabs button { padding:11px 22px; background:var(--glass-bg-light); backdrop-filter:blur(15px); border:1px solid var(--glass-border); color:var(--text-secondary); border-radius:12px; cursor:pointer; font-size:13px; font-weight:600; transition:all 0.3s; }
+        .admin-tabs button:hover { background:var(--glass-bg); color:var(--text-primary); }
+        .admin-tabs button.tab-active { background:rgba(13,148,136,0.12); border-color:rgba(13,148,136,0.35); color:var(--accent-teal); font-weight:700; }
+        .tab-panel { display:none; }
+        .tab-panel.tab-active { display:block; animation:pageIn 0.35s ease; }
+
+        .sub-tabs { display:flex; gap:8px; margin-bottom:22px; }
+        .sub-tabs button { padding:9px 20px; background:var(--glass-bg-light); border:1px solid var(--glass-border); color:var(--text-secondary); border-radius:22px; cursor:pointer; font-size:12px; font-weight:600; }
+        .sub-tabs button.sub-active { background:rgba(13,148,136,0.14); border-color:rgba(13,148,136,0.35); color:var(--accent-teal); }
+        .sub-panel { display:none; }
+        .sub-panel.sub-active { display:block; animation:pageIn 0.3s ease; }
+
+        .search-box { display:flex; gap:8px; margin-bottom:14px; align-items:center; }
+        .search-box input { flex:1; padding:12px 16px; background:var(--input-bg); border:1px solid var(--input-border); border-radius:28px; color:var(--text-primary); font-size:13px; }
+        .search-box input:focus { border-color:var(--input-focus-border); outline:none; }
+        .search-box .btn-search { padding:10px 20px; border-radius:28px; font-size:12px; background:rgba(13,148,136,0.12); border:1px solid rgba(13,148,136,0.3); color:var(--accent-teal); cursor:pointer; font-weight:600; }
+        .search-box .btn-clear { padding:10px 16px; border-radius:28px; font-size:12px; background:var(--btn-glass); border:1px solid var(--glass-border); color:var(--text-secondary); cursor:pointer; }
+
+        .checkbox-group { display:flex; flex-wrap:wrap; gap:8px; }
+        .checkbox-group label { display:flex; align-items:center; gap:6px; background:var(--glass-bg-light); padding:9px 16px; border-radius:10px; cursor:pointer; font-size:12px; border:1px solid var(--glass-border); transition:all 0.3s; color:var(--text-secondary); }
+        .checkbox-group label:hover:not(.locked) { background:var(--glass-bg); border-color:var(--accent-teal); }
+        .checkbox-group label.selected { background:rgba(13,148,136,0.12); border-color:rgba(13,148,136,0.45); color:var(--accent-teal); font-weight:600; }
+        .checkbox-group label.locked { background:var(--glass-bg-light); border-color:var(--glass-border); color:var(--text-muted); cursor:not-allowed; opacity:0.5; }
+        .checkbox-group label.locked::after { content:'🔒'; font-size:9px; margin-left:4px; }
+        .checkbox-group input[type="checkbox"] { width:auto; accent-color:var(--accent-teal); }
+
+        .teacher-select-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:10px; margin-top:8px; }
+        .teacher-select-card { background:var(--glass-bg-light); backdrop-filter:blur(20px); border:2px solid var(--glass-border); border-radius:14px; padding:14px; cursor:pointer; transition:all 0.3s; display:flex; align-items:center; gap:10px; }
+        .teacher-select-card:hover { background:var(--glass-bg); border-color:var(--accent-blue); transform:translateY(-2px); }
+        .teacher-select-card.selected { background:rgba(99,102,241,0.08); border-color:var(--accent-blue); }
+        .teacher-select-card .t-avatar { width:40px; height:40px; border-radius:10px; background:rgba(99,102,241,0.1); display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0; }
+        .teacher-select-card .t-info { flex:1; }
+        .teacher-select-card .t-info strong { display:block; font-size:0.85rem; color:var(--text-primary); }
+        .teacher-select-card .t-info small { color:var(--text-secondary); font-size:0.7rem; }
+        .teacher-select-card .check-dot { width:20px; height:20px; border-radius:50%; border:2px solid rgba(128,128,128,0.3); flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:all 0.3s; }
+        .teacher-select-card.selected .check-dot { background:var(--accent-blue); border-color:var(--accent-blue); }
+        .teacher-select-card.selected .check-dot::after { content:'✓'; color:#fff; font-weight:bold; font-size:11px; }
+
+        .teacher-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:12px; }
+        .teacher-card { background:var(--glass-bg-light); backdrop-filter:blur(20px); border:2px solid var(--glass-border); border-radius:16px; padding:20px; cursor:pointer; text-align:center; transition:all 0.3s; }
+        .teacher-card:hover { background:var(--glass-bg); border-color:var(--accent-teal); transform:translateY(-4px); }
+        .teacher-card.selected { background:rgba(13,148,136,0.1); border-color:var(--accent-teal); }
+        .teacher-card .avatar { width:48px; height:48px; border-radius:50%; background:rgba(13,148,136,0.1); display:flex; align-items:center; justify-content:center; font-size:1.4rem; margin:0 auto 8px; }
+        .teacher-card strong { display:block; font-size:0.85rem; color:var(--text-primary); }
+        .teacher-card small { color:var(--text-secondary); font-size:0.7rem; }
+
+        .grade-grid { display:flex; flex-wrap:wrap; gap:10px; }
+        .grade-card { background:var(--glass-bg-light); backdrop-filter:blur(20px); border:2px solid var(--glass-border); border-radius:12px; padding:14px 22px; cursor:pointer; text-align:center; transition:all 0.3s; }
+        .grade-card:hover { background:var(--glass-bg); border-color:var(--accent-blue); transform:translateY(-2px); }
+        .grade-card.selected { background:rgba(99,102,241,0.08); border-color:var(--accent-blue); }
+
+        .list-item { background:var(--list-bg); padding:15px 18px; border-radius:12px; margin:8px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; border:1px solid var(--list-border); }
+        .list-item:hover { background:var(--list-hover); }
+        .badge { padding:4px 12px; border-radius:18px; font-size:10px; font-weight:600; }
+        .badge-success { background:var(--badge-paid-bg); color:var(--success); border:1px solid rgba(16,185,129,0.25); }
+        .badge-danger { background:var(--badge-unpaid-bg); color:var(--danger); border:1px solid rgba(239,68,68,0.2); }
+        .badge-password { font-family:monospace; background:rgba(99,102,241,0.08); color:var(--accent-blue); border:1px solid rgba(99,102,241,0.2); }
+
+        .modal-overlay { position:fixed; top:0; left:0; right:0; bottom:0; background:var(--modal-overlay); backdrop-filter:blur(6px); z-index:200; display:flex; align-items:center; justify-content:center; animation:fadeIn 0.3s ease; }
+        @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+        .modal-box { background:var(--modal-bg); backdrop-filter:blur(30px); border:1px solid var(--glass-border); border-radius:22px; padding:32px; width:600px; max-width:95%; max-height:85vh; overflow-y:auto; }
+        .modal-box h3 { margin-bottom:22px; padding-bottom:12px; border-bottom:2px solid var(--glass-border); color:var(--text-primary); }
+        .modal-box .btn-row { display:flex; gap:10px; margin-top:22px; justify-content:flex-end; }
+
+        .password-cell { display:flex; align-items:center; gap:8px; }
+        .password-cell .lock-icon { cursor:pointer; font-size:14px; transition:all 0.2s; }
+        .password-cell .lock-icon:hover { transform:scale(1.2); }
+
+        .grade-dashboard-card {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 2px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            min-width: 140px;
+        }
+        .grade-dashboard-card:hover {
+            background: var(--glass-bg-hover);
+            border-color: var(--accent-teal);
+            transform: translateY(-4px);
+        }
+        .grade-dashboard-card.selected {
+            background: rgba(13,148,136,0.1);
+            border-color: var(--accent-teal);
+        }
+
+        .student-payment-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin: 6px 0;
+            background: var(--glass-bg-light);
+            border: 1px solid var(--glass-border);
+        }
+        .month-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .month-cell {
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .month-cell.paid {
+            background: rgba(16,185,129,0.12);
+            border: 1px solid rgba(16,185,129,0.3);
+            color: var(--success);
+        }
+        .month-cell.unpaid {
+            background: rgba(239,68,68,0.07);
+            border: 1px solid rgba(239,68,68,0.15);
+            color: var(--danger);
+        }
+
+        .section-divider {
+            margin: 32px 0;
+            border: none;
+            border-top: 2px solid var(--glass-border);
+        }
+
+        /* Attendance specific styles */
+        .attendance-student-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin: 6px 0;
+            background: var(--glass-bg-light);
+            border: 1px solid var(--glass-border);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .attendance-student-card:hover {
+            background: var(--glass-bg);
+        }
+        .attendance-student-card.present {
+            border-left: 4px solid var(--success);
+        }
+        .attendance-student-card.absent {
+            border-left: 4px solid var(--danger);
+        }
+        .attendance-student-card.late {
+            border-left: 4px solid var(--warning);
+        }
+        .attendance-status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .attendance-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .attendance-summary-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        @media(max-width:768px){ .hero-title{font-size:2.5rem} .form-row{grid-template-columns:1fr} .teacher-grid,.teacher-select-grid{grid-template-columns:1fr 1fr} }
+    </style>
+</head>
+<body>
+    <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div><div class="orb orb-4"></div>
+
+    <!-- HOME PAGE -->
+    <div id="homePage" class="page active">
+        <nav class="navbar"><div class="logo-container" onclick="showPage('homePage')"><div class="logo-icon"><img src="images-removebg-preview.png" width="50" height=""></div><div class="logo-text">Bivora<span>Educational Center</span></div></div><div class="nav-menu"><a class="nav-link active" onclick="showPage('homePage')">Home</a><a class="nav-link" onclick="showPage('aboutPage')">About</a><a class="nav-link" onclick="showPage('servicesPage')">Services</a><a class="nav-link" onclick="showPage('contactPage')">Contact</a><button class="nav-link btn-portals" onclick="goToPortals()">✦ Portals</button><button class="theme-toggle" onclick="toggleTheme()">🌙</button></div></nav>
+        <div class="page-content"><section class="hero"><div><div class="hero-badge">✦ Premier Educational Institution</div><h1 class="hero-title">Bivora <span>Educational</span> Center</h1><p class="hero-subtitle">Nurturing minds from Grade 6 to 11 with excellence and dedication</p></div></section></div>
+        <div class="designer-footer">
+            <div class="copyright">© 2026 Bivora Educational Center. All rights reserved.</div>
+            <div class="footer-divider"></div>
+            <div class="designer-info">
+                <div class="designer-photo" id="designerPhotoDisplay">
+                    <img id="designerPhotoImg" src="" alt="IK" style="display:none;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                    <span id="designerPhotoFallback" style="display:flex;">👨‍💻</span>
+                </div>
+                <div class="designer-text">
+                    <div class="designed-by">Designed & Developed by</div>
+                    <div class="designer-name">Imasha Kalhara</div>
+                    <div class="designer-title">Full Stack Developer</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Short Pages -->
+    <div id="aboutPage" class="page"><nav class="navbar"><div class="logo-container" onclick="showPage('homePage')"><div class="logo-icon"><img src="images-removebg-preview.png" width="50" height=""></div><div class="logo-text">Bivora<span>Educational Center</span></div></div><div class="nav-menu"><a class="nav-link" onclick="showPage('homePage')">Home</a><a class="nav-link active" onclick="showPage('aboutPage')">About</a><a class="nav-link" onclick="showPage('servicesPage')">Services</a><a class="nav-link" onclick="showPage('contactPage')">Contact</a><button class="nav-link btn-portals" onclick="goToPortals()">✦ Portals</button><button class="theme-toggle" onclick="toggleTheme()">🌙</button></div></nav><div class="page-content"><section class="section"><div class="container"><h2 class="section-title">About Bivora</h2></div></section></div><div class="designer-footer"><div class="copyright">© 2026 Bivora Educational Center</div><div class="footer-divider"></div><div class="designer-info"><div class="designer-photo"><span>👨‍💻</span></div><div class="designer-text"><div class="designed-by">Designed & Developed by</div><div class="designer-name">Imasha Kalhara</div></div></div></div></div>
+    <div id="servicesPage" class="page"><nav class="navbar"><div class="logo-container" onclick="showPage('homePage')"><div class="logo-icon"><img src="images-removebg-preview.png" width="50" height=""></div><div class="logo-text">Bivora<span>Educational Center</span></div></div><div class="nav-menu"><a class="nav-link" onclick="showPage('homePage')">Home</a><a class="nav-link" onclick="showPage('aboutPage')">About</a><a class="nav-link active" onclick="showPage('servicesPage')">Services</a><a class="nav-link" onclick="showPage('contactPage')">Contact</a><button class="nav-link btn-portals" onclick="goToPortals()">✦ Portals</button><button class="theme-toggle" onclick="toggleTheme()">🌙</button></div></nav><div class="page-content"><section class="section"><div class="container"><h2 class="section-title">Services</h2></div></section></div><div class="designer-footer"><div class="copyright">© 2026 Bivora Educational Center</div><div class="footer-divider"></div><div class="designer-info"><div class="designer-photo"><span>👨‍💻</span></div><div class="designer-text"><div class="designed-by">Designed & Developed by</div><div class="designer-name">Imasha Kalhara</div></div></div></div></div>
+    <div id="contactPage" class="page"><nav class="navbar"><div class="logo-container" onclick="showPage('homePage')"><div class="logo-icon"><img src="images-removebg-preview.png" width="50" height=""></div><div class="logo-text">Bivora<span>Educational Center</span></div></div><div class="nav-menu"><a class="nav-link" onclick="showPage('homePage')">Home</a><a class="nav-link" onclick="showPage('aboutPage')">About</a><a class="nav-link" onclick="showPage('servicesPage')">Services</a><a class="nav-link active" onclick="showPage('contactPage')">Contact</a><button class="nav-link btn-portals" onclick="goToPortals()">✦ Portals</button><button class="theme-toggle" onclick="toggleTheme()">🌙</button></div></nav><div class="page-content"><section class="section"><div class="container"><h2 class="section-title">Contact</h2></div></section></div><div class="designer-footer"><div class="copyright">© 2026 Bivora Educational Center</div><div class="footer-divider"></div><div class="designer-info"><div class="designer-photo"><span>👨‍💻</span></div><div class="designer-text"><div class="designed-by">Designed & Developed by</div><div class="designer-name">Imasha Kalhara</div></div></div></div></div>
+
+    <!-- PORTALS PAGE -->
+    <div id="portalsPage" class="page"><div class="portals-header"><div class="logo-container" onclick="showPage('homePage')"><div class="logo-icon"><img src="images-removebg-preview.png" width="50" height=""></div><div class="logo-text">Bivora<span>Portals</span></div></div><div style="display:flex;gap:8px;"><button class="btn btn-back" onclick="showPage('homePage')">← Back</button><button class="theme-toggle" onclick="toggleTheme()">🌙</button></div></div><div class="page-content"><div style="max-width:1100px;margin:60px auto;padding:0 20px;"><h2 class="section-title">🚪 Choose Your Portal</h2><div class="portals-grid"><div class="portal-card admin" onclick="openPortal('admin')"><span class="portal-icon">🔐</span><h3>Admin</h3><p>Manage everything</p></div><div class="portal-card editor" onclick="openPortal('editor')"><span class="portal-icon">✏️</span><h3>Editor</h3><p>Admin Pass & Photo</p></div><div class="portal-card student" onclick="openPortal('student')"><span class="portal-icon">🎓</span><h3>Student</h3><p>View dashboard</p></div><div class="portal-card teacher" onclick="openPortal('teacher')"><span class="portal-icon">👨‍🏫</span><h3>Teacher</h3><p>Students & PDF</p></div><div class="portal-card attendance" onclick="openPortal('attendance')"><span class="portal-icon">📋</span><h3>Attendance</h3><p>Mark daily</p></div></div></div></div><div class="designer-footer"><div class="copyright">© 2026 Bivora Educational Center</div><div class="footer-divider"></div><div class="designer-info"><div class="designer-photo"><span>👨‍💻</span></div><div class="designer-text"><div class="designed-by">Designed & Developed by</div><div class="designer-name">Imasha Kalhara</div></div></div></div></div>
+
+    <!-- ADMIN PORTAL -->
+    <div id="adminPortal" class="page">
+        <div class="portals-header"><div class="logo-container" onclick="goToPortals()"><div class="logo-icon">🔐</div><div class="logo-text">Bivora<span>Admin</span></div></div><div style="display:flex;gap:8px;"><button class="btn btn-back" onclick="goToPortals()">← Portals</button><button class="btn btn-red" onclick="adminLogout()" id="adminLogoutBtn" style="display:none;">Logout</button><button class="theme-toggle" onclick="toggleTheme()">🌙</button></div></div>
+        <div id="adminLoginSection" class="login-container"><div class="login-box"><div class="icon">🔐</div><h2>Admin Portal</h2><p class="subtitle">Enter password</p><input type="password" id="adminPass" placeholder="••••••••"><button class="login-btn" onclick="adminLogin()">Sign In</button><div class="hint">Default: <strong>admin123</strong></div></div></div>
+        <div id="adminDashboard" style="display:none;" class="page-content"><div class="dash-container"><div class="dash-glass-box"><h2>🛠️ Admin Dashboard</h2>
+            <div class="admin-tabs"><button class="tab-active" onclick="switchAdminTab('tabTeacher')">👨‍🏫 Teachers</button><button onclick="switchAdminTab('tabStudent')">🎓 Students</button><button onclick="switchAdminTab('tabPayment')">💰 Payments</button><button onclick="switchAdminTab('tabPasswords')">🔑 Passwords</button><button onclick="switchAdminTab('tabPromotion')">📈 Promotion</button></div>
+            
+            <!-- Teachers Tab (Add + List) -->
+            <div id="tabTeacher" class="tab-panel tab-active">
+                <h3>👨‍🏫 Register New Teacher</h3>
+                <div class="form-row"><div class="form-group"><label>Name</label><input type="text" id="tName"></div><div class="form-group"><label>Teacher ID <span class="id-auto-badge">🔄 Auto</span></label><input type="text" id="tId" oninput="checkTeacherId()"><p style="font-size:0.7rem;margin-top:4px;" id="teacherIdStatus"></p></div><div class="form-group"><label>Subject</label><input type="text" id="tSubject"></div><div class="form-group"><label>Email</label><input type="email" id="tEmail"></div></div>
+                <div class="form-group"><label>Grades</label><div class="checkbox-group"><label><input type="checkbox" class="tGrade" value="Grade 6"> G6</label><label><input type="checkbox" class="tGrade" value="Grade 7"> G7</label><label><input type="checkbox" class="tGrade" value="Grade 8"> G8</label><label><input type="checkbox" class="tGrade" value="Grade 9"> G9</label><label><input type="checkbox" class="tGrade" value="Grade 10"> G10</label><label><input type="checkbox" class="tGrade" value="Grade 11"> G11</label></div></div>
+                <button class="btn btn-teal" onclick="addTeacher()">➕ Register Teacher</button>
+                <div class="msg" id="teacherMsg"></div>
+                
+                <hr class="section-divider">
+                
+                <h3>📋 All Teachers</h3>
+                <div class="search-box"><input type="text" id="teacherSearchInput" placeholder="🔍 Search teachers..." oninput="searchTeachers()"><button class="btn-search" onclick="searchTeachers()">🔍</button><button class="btn-clear" onclick="clearTeacherSearch()">✕</button></div>
+                <p class="search-result-count" id="teacherSearchCount"></p>
+                <div id="teacherList"></div>
+            </div>
+            
+            <!-- Students Tab (Add + List) -->
+            <div id="tabStudent" class="tab-panel">
+                <h3>🎓 Register New Student</h3>
+                <div class="form-row"><div class="form-group"><label>Name</label><input type="text" id="sName"></div><div class="form-group"><label>Student ID <span class="id-auto-badge">🔄 Auto</span></label><input type="text" id="sId" oninput="checkStudentId()"><p style="font-size:0.7rem;margin-top:4px;" id="studentIdStatus"></p></div><div class="form-group"><label>Email</label><input type="email" id="sEmail"></div><div class="form-group"><label>Phone</label><input type="tel" id="sPhone"></div></div>
+                <div class="form-group"><label>Grade (ONE only)</label><div class="checkbox-group" id="studentGradeGroup"><label><input type="checkbox" class="sGrade" value="Grade 6" onchange="handleGradeSelection(this)"> G6</label><label><input type="checkbox" class="sGrade" value="Grade 7" onchange="handleGradeSelection(this)"> G7</label><label><input type="checkbox" class="sGrade" value="Grade 8" onchange="handleGradeSelection(this)"> G8</label><label><input type="checkbox" class="sGrade" value="Grade 9" onchange="handleGradeSelection(this)"> G9</label><label><input type="checkbox" class="sGrade" value="Grade 10" onchange="handleGradeSelection(this)"> G10</label><label><input type="checkbox" class="sGrade" value="Grade 11" onchange="handleGradeSelection(this)"> G11</label></div><p style="font-size:0.7rem;margin-top:4px;" id="gradeSelectionStatus">No grade selected</p></div>
+                <div class="form-group" id="teacherSelectionSection" style="display:none;"><label>Teachers (MULTIPLE)</label><div class="teacher-select-grid" id="teacherSelectCards"></div><p style="font-size:0.7rem;">Selected: <span id="selectedTeachersCount">0</span></p></div>
+                <button class="btn btn-teal" onclick="addStudent()">➕ Register Student</button>
+                <div class="msg" id="studentMsg"></div>
+                
+                <hr class="section-divider">
+                
+                <h3>📋 All Students</h3>
+                <div class="search-box"><input type="text" id="studentSearchInput" placeholder="🔍 Search students..." oninput="searchStudents()"><button class="btn-search" onclick="searchStudents()">🔍</button><button class="btn-clear" onclick="clearStudentSearch()">✕</button></div>
+                <p class="search-result-count" id="studentSearchCount"></p>
+                <div id="studentList"></div>
+            </div>
+            
+            <!-- Payments Tab -->
+            <div id="tabPayment" class="tab-panel"><h3>💰 Payments</h3><div class="sub-tabs"><button class="sub-active" onclick="switchSubTab('subPay')">💳 Quick Pay</button><button onclick="switchSubTab('subPayInfo')">📊 Pay Info</button></div><div id="subPay" class="sub-panel sub-active"><div id="payStep1"><div class="form-group"><label>Teacher</label><div class="teacher-grid" id="payTeacherCards"></div></div></div><div id="payStep2" style="display:none;"><div class="form-group"><label>Grade</label><div class="grade-grid" id="payGradeCards"></div></div></div><div id="payStep3" style="display:none;"><div class="form-row"><div class="form-group"><label>Student ID</label><input type="text" id="payStudentId" oninput="searchPayStudent()"></div><div class="form-group"><label>Month</label><input type="text" id="payCurrentMonth" readonly style="background:rgba(13,148,136,0.06);border-color:rgba(13,148,136,0.25);color:var(--accent-teal);"></div></div><div id="payMonthStatus"></div><div id="payStudentResult"></div></div></div><div id="subPayInfo" class="sub-panel"><div class="form-group"><label>Teacher</label><div class="teacher-grid" id="infoTeacherCards"></div></div><div id="infoGradeSection" style="display:none;"><div class="form-group"><label>Grade</label><div class="grade-grid" id="infoGradeCards"></div></div></div><div id="infoStudentSection" style="display:none;"><div class="form-group"><label>Student ID</label><input type="text" id="infoStudentId" oninput="searchInfoStudent()"></div><div id="infoStudentResult"></div></div></div></div>
+            
+            <!-- Passwords Tab -->
+            <div id="tabPasswords" class="tab-panel">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;">
+                    <div class="dash-glass-box" style="border-left:4px solid var(--accent-purple);margin-bottom:0;">
+                        <h3>🔑 Student Passwords</h3>
+                        <p style="color:var(--text-secondary);font-size:0.8rem;margin-bottom:14px;">Each student has a unique password</p>
+                        <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;">
+                            <button class="btn btn-pink btn-sm" onclick="autoGeneratePasswords()">🔄 Auto Generate</button>
+                            <button class="btn btn-amber btn-sm" onclick="resetAllPasswords()">🔄 Reset All</button>
+                            <button class="btn btn-teal btn-sm" onclick="refreshPasswordList()">🔄 Refresh</button>
+                        </div>
+                        <div id="studentPasswordList"></div>
+                        <div class="msg" id="studentPassMsg"></div>
+                    </div>
+                    <div class="dash-glass-box" style="border-left:4px solid var(--accent-amber);margin-bottom:0;">
+                        <h3>🔑 Teacher Passwords</h3>
+                        <p style="color:var(--text-secondary);font-size:0.8rem;margin-bottom:14px;">Each teacher has a unique password</p>
+                        <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;">
+                            <button class="btn btn-pink btn-sm" onclick="autoGenerateTeacherPasswords()">🔄 Auto Generate</button>
+                            <button class="btn btn-amber btn-sm" onclick="resetAllTeacherPasswords()">🔄 Reset All</button>
+                            <button class="btn btn-teal btn-sm" onclick="refreshTeacherPasswordList()">🔄 Refresh</button>
+                        </div>
+                        <div id="teacherPasswordList"></div>
+                        <div class="msg" id="teacherPassMsg"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Promotion Tab -->
+            <div id="tabPromotion" class="tab-panel">
+                <div class="dash-glass-box">
+                    <h3>📈 Automatic Grade Promotion</h3>
+                    <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:20px;">Promote all students to the next grade at the end of the academic year. Students in Grade 11 will be archived.</p>
+                    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+                        <button class="btn btn-teal" onclick="promoteAllStudents()" id="promoteBtn">🎓 Promote All Students</button>
+                        <span style="color:var(--text-muted);font-size:0.85rem;">⚠️ This action cannot be undone</span>
+                    </div>
+                    <div class="msg" id="promotionMsg"></div>
+                    
+                    <hr class="section-divider">
+                    
+                    <h3>📦 Archived Students</h3>
+                    <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:16px;">Students who completed Grade 11 and were archived</p>
+                    <div id="archivedStudentsList"></div>
+                    <div style="display:flex;gap:8px;margin-top:12px;">
+                        <button class="btn btn-teal btn-sm" onclick="loadArchivedStudents()">🔄 Refresh</button>
+                        <button class="btn btn-red btn-sm" onclick="clearArchivedStudents()">🗑️ Clear Archive</button>
+                    </div>
+                </div>
+            </div>
+        </div></div></div>
+    </div>
+
+    <!-- EDITOR PORTAL -->
+    <div id="editorPortal" class="page"><div class="portals-header"><div class="logo-container" onclick="goToPortals()"><div class="logo-icon">✏️</div><div class="logo-text">Bivora<span>Editor</span></div></div><div style="display:flex;gap:8px;"><button class="btn btn-back" onclick="goToPortals()">← Portals</button><button class="btn btn-red" onclick="editorLogout()" id="editorLogoutBtn" style="display:none;">Logout</button><button class="theme-toggle" onclick="toggleTheme()">🌙</button></div></div>
+        <div id="editorLoginSection" class="login-container"><div class="login-box"><div class="icon">✏️</div><h2>Editor Portal</h2><p class="subtitle">Enter editor password</p><input type="password" id="editorPass" placeholder="••••••••"><button class="login-btn" onclick="editorLogin()">Sign In</button><div class="hint">Password: <strong>editor456</strong></div></div></div>
+        <div id="editorDashboard" style="display:none;" class="page-content">
+            <div class="dash-container">
+                <div class="dash-glass-box" style="border-left:4px solid var(--accent-rose);"><h3>🔑 Change Admin Password</h3><div class="form-row"><div class="form-group"><label>Current</label><input type="password" id="curPass"></div><div class="form-group"><label>New</label><input type="password" id="newPass"></div></div><div class="form-group"><label>Confirm</label><input type="password" id="confPass"></div><button class="btn btn-amber" onclick="changePass()">🔄 Update</button><div class="msg" id="passMsg"></div></div>
+                <div class="dash-glass-box" style="border-left:4px solid var(--accent-teal);"><h3>📸 Upload Designer Photo</h3><p style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:20px;">Upload your photo to display in the website footer</p><div style="text-align:center;"><div class="photo-upload-area" onclick="document.getElementById('photoUploadInput').click()" id="photoUploadPreview"><img id="photoPreviewImg" src="" alt="" style="display:none;"><span class="placeholder" id="photoPlaceholder">📷</span><div class="change-overlay">Change Photo</div></div><input type="file" id="photoUploadInput" accept="image/*" style="display:none;" onchange="handlePhotoUpload(event)"><p style="color:var(--text-muted);font-size:0.75rem;margin-top:8px;">Click to upload | Recommended: Square photo</p><button class="btn btn-teal btn-sm" onclick="saveDesignerPhoto()" style="margin-top:12px;">💾 Save Photo</button><button class="btn btn-red btn-sm" onclick="removeDesignerPhoto()" style="margin-top:12px;margin-left:8px;">🗑️ Remove</button></div><div class="msg" id="photoMsg"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STUDENT PORTAL -->
+    <div id="studentPortal" class="page">
+      <div class="portals-header"><div class="logo-container" onclick="goToPortals()"><div class="logo-icon">🎓</div><div class="logo-text">Bivora<span>Student</span></div></div><div style="display:flex;gap:8px;"><button class="btn btn-back" onclick="goToPortals()">←</button><button class="theme-toggle" onclick="toggleTheme()">🌙</button></div></div>
+      <div class="page-content">
+        <div id="studentPasswordSection" class="login-container"><div class="login-box"><div class="icon">🔐</div><h2>Student Portal</h2><p class="subtitle">Enter your student password</p><input type="password" id="studentPortalPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')verifyStudentPass()"><button class="login-btn" onclick="verifyStudentPass()">Continue</button><div class="msg" id="stuPassMsg"></div><div class="hint">Default password: <strong>stu001</strong> (based on Student ID)</div></div></div>
+        <div id="studentSearchSection" style="display:none;" class="login-container"><div class="login-box" style="max-width:420px;"><div class="icon">🔍</div><h2>Find Your Profile</h2><p class="subtitle">Enter your Student ID</p><div style="display:flex;gap:8px;margin-bottom:8px;"><input type="text" id="studentIdInput" placeholder="e.g. STU001" oninput="autoSearchStudent()" onkeydown="if(event.key==='Enter')searchAndShowResults()" style="flex:1;"><button class="btn btn-teal" onclick="searchAndShowResults()" style="white-space:nowrap;">🔍 Search</button></div><div id="studentSearchResults"></div><div class="msg" id="stuSearchMsg"></div><button class="btn btn-back" onclick="backToStudentPass()" style="margin-top:12px;width:100%;">← Back</button></div></div>
+        <div id="studentFinalPassSection" style="display:none;" class="login-container"><div class="login-box"><div class="icon">🔐</div><h2>Verify Your Identity</h2><p class="subtitle" id="finalPassStudentName">Please enter your password again</p><input type="password" id="studentFinalPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')verifyFinalPass()"><button class="login-btn" onclick="verifyFinalPass()">🔓 Unlock Dashboard</button><div class="msg" id="finalPassMsg"></div><button class="btn btn-back" onclick="backToStudentSearchFromFinal()" style="margin-top:12px;width:100%;">← Back</button></div></div>
+        <div id="studentDashboard" style="display:none;"><div class="dash-container"><div class="dash-glass-box" style="border-left:4px solid var(--accent-teal);margin-bottom:20px;"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;"><div style="display:flex;align-items:center;gap:16px;"><div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--accent-teal),var(--accent-blue));display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;">🎓</div><div><h2 id="stuDashName" style="margin:0;font-size:1.4rem;"></h2><p id="stuDashId" style="margin:4px 0 0;color:var(--text-secondary);font-size:0.9rem;"></p><span id="stuDashGrade" style="display:inline-block;margin-top:6px;padding:3px 12px;border-radius:20px;background:rgba(13,148,136,0.12);color:var(--accent-teal);font-size:0.8rem;font-weight:600;"></span></div></div><button class="btn btn-back" onclick="backToStudentSearchFromDashboard()">← Back to Search</button></div></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:20px;"><div class="dash-glass-box" style="padding:18px;border-left:4px solid var(--accent-blue);"><div style="font-size:1.6rem;margin-bottom:6px;">📧</div><div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:4px;">Email</div><div id="stuDashEmail" style="font-size:0.9rem;font-weight:500;color:var(--text-primary);word-break:break-all;">—</div></div><div class="dash-glass-box" style="padding:18px;border-left:4px solid var(--accent-purple);"><div style="font-size:1.6rem;margin-bottom:6px;">📱</div><div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:4px;">Phone</div><div id="stuDashPhone" style="font-size:0.9rem;font-weight:500;color:var(--text-primary);">—</div></div><div class="dash-glass-box" style="padding:18px;border-left:4px solid var(--accent-amber);"><div style="font-size:1.6rem;margin-bottom:6px;">💰</div><div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:4px;">Payment Status</div><div id="stuDashPaySummary" style="font-size:0.9rem;font-weight:600;"></div></div></div><div class="dash-glass-box" style="margin-bottom:20px;"><h3 style="margin-bottom:14px;">👨‍🏫 My Teachers</h3><div id="stuDashTeachers" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;"></div></div><div class="dash-glass-box" style="margin-bottom:20px;"><h3 style="margin-bottom:14px;">📋 My Attendance</h3><div id="stuDashAttendance"></div></div><div class="dash-glass-box"><h3 style="margin-bottom:14px;">💳 Payment Details</h3><div id="stuDashPayments"></div></div></div></div>
+      </div>
+    </div>
+
+    <!-- TEACHER PORTAL -->
+    <div id="teacherPortal" class="page">
+      <div class="portals-header"><div class="logo-container" onclick="goToPortals()"><div class="logo-icon">👨‍🏫</div><div class="logo-text">Bivora<span>Teacher</span></div></div><div style="display:flex;gap:8px;"><button class="btn btn-back" onclick="goToPortals()">←</button><button class="theme-toggle" onclick="toggleTheme()">🌙</button></div></div>
+      <div class="page-content">
+        <div id="teacherPasswordSection" class="login-container"><div class="login-box"><div class="icon">🔐</div><h2>Teacher Portal</h2><p class="subtitle">Enter your teacher password</p><input type="password" id="teacherPortalPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')verifyTeacherPass()"><button class="login-btn" onclick="verifyTeacherPass()">Continue</button><div class="msg" id="tchPassMsg"></div><div class="hint">Default password: <strong>tch001</strong> (based on Teacher ID)</div></div></div>
+        <div id="teacherSearchSection" style="display:none;" class="login-container"><div class="login-box" style="max-width:420px;"><div class="icon">🔍</div><h2>Find Your Profile</h2><p class="subtitle">Enter your Teacher ID</p><div style="display:flex;gap:8px;margin-bottom:8px;"><input type="text" id="teacherIdInput" placeholder="e.g. TCH001" oninput="autoSearchTeacher()" onkeydown="if(event.key==='Enter')searchTeacherResults()" style="flex:1;"><button class="btn btn-teal" onclick="searchTeacherResults()" style="white-space:nowrap;">🔍 Search</button></div><div id="teacherSearchResults"></div><div class="msg" id="tchSearchMsg"></div><button class="btn btn-back" onclick="backToTeacherPass()" style="margin-top:12px;width:100%;">← Back</button></div></div>
+        <div id="teacherFinalPassSection" style="display:none;" class="login-container"><div class="login-box"><div class="icon">🔐</div><h2>Verify Your Identity</h2><p class="subtitle" id="finalPassTeacherName">Please enter your password again</p><input type="password" id="teacherFinalPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')verifyTeacherFinalPass()"><button class="login-btn" onclick="verifyTeacherFinalPass()">🔓 Unlock Dashboard</button><div class="msg" id="finalTchPassMsg"></div><button class="btn btn-back" onclick="backToTeacherSearchFromFinal()" style="margin-top:12px;width:100%;">← Back</button></div></div>
+        <div id="teacherDashboard" style="display:none;"><div class="dash-container">
+          <div class="dash-glass-box" style="border-left:4px solid var(--accent-teal);margin-bottom:20px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+              <div style="display:flex;align-items:center;gap:16px;">
+                <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--accent-teal),var(--accent-blue));display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;">👨‍🏫</div>
+                <div>
+                  <h2 id="tchDashName" style="margin:0;font-size:1.4rem;"></h2>
+                  <p id="tchDashId" style="margin:4px 0 0;color:var(--text-secondary);font-size:0.9rem;"></p>
+                  <span id="tchDashSubject" style="display:inline-block;margin-top:6px;padding:3px 12px;border-radius:20px;background:rgba(13,148,136,0.12);color:var(--accent-teal);font-size:0.8rem;font-weight:600;"></span>
+                </div>
+              </div>
+              <button class="btn btn-back" onclick="backToTeacherSearchFromDashboard()">← Back to Search</button>
+            </div>
+          </div>
+          <div class="dash-glass-box">
+            <h3 style="margin-bottom:14px;">📚 My Grades</h3>
+            <p style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:16px;">Click a grade to view monthly student payment details</p>
+            <div style="display:flex;flex-wrap:wrap;gap:12px;" id="tchDashGradeCards"></div>
+            <div id="tchGradeDetailSection" style="display:none;margin-top:24px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:16px;">
+                <h4 id="tchSelectedGradeTitle" style="margin:0;color:var(--accent-teal);"></h4>
+                <div style="display:flex;gap:8px;">
+                  <button class="btn btn-green btn-sm" onclick="downloadGradePDF('paid')">📥 Download Paid PDF</button>
+                  <button class="btn btn-red btn-sm" onclick="downloadGradePDF('unpaid')">📥 Download Unpaid PDF</button>
+                </div>
+              </div>
+              <div id="tchMonthGrid" class="month-grid"></div>
+              <div id="tchStudentListByMonth" style="margin-top:16px;"></div>
+            </div>
+          </div>
+          <div class="dash-glass-box" style="margin-top:20px;">
+            <h3 style="margin-bottom:14px;">🎓 My Students</h3>
+            <div id="tchDashStudents" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;"></div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- ATTENDANCE PORTAL -->
+    <div id="attendancePortal" class="page">
+        <div class="portals-header"><div class="logo-container" onclick="goToPortals()"><div class="logo-icon">📋</div><div class="logo-text">Bivora<span>Attendance</span></div></div><div style="display:flex;gap:8px;"><button class="btn btn-back" onclick="goToPortals()">←</button><button class="theme-toggle" onclick="toggleTheme()">🌙</button></div></div>
+        <div class="page-content">
+            <div id="attendanceLoginSection" class="login-container"><div class="login-box"><div class="icon">📋</div><h2>Attendance Portal</h2><p class="subtitle">Enter attendance password</p><input type="password" id="attPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')attLogin()"><button class="login-btn" onclick="attLogin()">Access</button><div class="msg" id="attMsg"></div><div class="hint">Password: <strong>1234</strong></div></div></div>
+            <div id="attendanceDashboard" style="display:none;" class="dash-container">
+                <div class="dash-glass-box">
+                    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-bottom:24px;">
+                        <h2 style="margin:0;border:none;padding:0;">📋 Attendance Management</h2>
+                        <div style="display:flex;gap:12px;align-items:center;">
+                            <div class="form-group" style="margin:0;">
+                                <input type="date" id="attDate" onchange="loadAttendanceData()" style="width:auto;min-width:160px;">
+                            </div>
+                            <button class="btn btn-back" onclick="backToAttendanceLogin()">← Back</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 1: Select Teacher -->
+                    <div id="attStep1">
+                        <h3 style="margin-bottom:16px;">👨‍🏫 Select Teacher</h3>
+                        <div class="teacher-grid" id="attTeacherCards"></div>
+                    </div>
+                    
+                    <!-- Step 2: Select Grade -->
+                    <div id="attStep2" style="display:none;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                            <h3 id="attSelectedTeacher" style="margin:0;"></h3>
+                            <button class="btn btn-back btn-sm" onclick="backToTeacherSelection()">← Change Teacher</button>
+                        </div>
+                        <h4 style="margin-bottom:12px;">📚 Select Grade</h4>
+                        <div class="grade-grid" id="attGradeCards"></div>
+                    </div>
+                    
+                    <!-- Step 3: Mark Attendance -->
+                    <div id="attStep3" style="display:none;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px;">
+                            <div>
+                                <h3 id="attSelectedGrade" style="margin:0;"></h3>
+                                <p id="attDateDisplay" style="margin:4px 0 0;color:var(--text-secondary);font-size:0.85rem;"></p>
+                            </div>
+                            <div style="display:flex;gap:8px;">
+                                <button class="btn btn-green btn-sm" onclick="markAllAttendance('present')">✅ Mark All Present</button>
+                                <button class="btn btn-red btn-sm" onclick="markAllAttendance('absent')">❌ Mark All Absent</button>
+                                <button class="btn btn-back btn-sm" onclick="backToGradeSelection()">← Change Grade</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Attendance Summary -->
+                        <div class="attendance-summary" id="attSummary"></div>
+                        
+                        <!-- Student List -->
+                        <div id="attStudentList"></div>
+                        
+                        <div style="display:flex;gap:12px;margin-top:20px;justify-content:flex-end;">
+                            <button class="btn btn-teal" onclick="saveAttendance()">💾 Save Attendance</button>
+                        </div>
+                        <div class="msg" id="attSaveMsg"></div>
+                    </div>
+                </div>
+                
+                <!-- Attendance Reports -->
+                <div class="dash-glass-box" style="margin-top:20px;">
+                    <h3>📊 Attendance Reports</h3>
+                    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+                        <div class="form-group" style="margin:0;flex:1;min-width:200px;">
+                            <label>Student ID</label>
+                            <input type="text" id="attReportStudentId" placeholder="Enter Student ID" oninput="searchAttendanceReport()">
+                        </div>
+                        <div id="attReportResult" style="flex:2;min-width:300px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL -->
+    <div id="editModal" class="modal-overlay" style="display:none;" onclick="if(event.target===this)closeEditModal()"><div class="modal-box" id="editModalContent"></div></div>
+
+    <script>
+        // ======================== STORAGE INIT ========================
+        const ALL_MONTHS=['2026-01','2026-02','2026-03','2026-04','2026-05','2026-06','2026-07','2026-08','2026-09','2026-10','2026-11','2026-12'];
+        const MONTH_NAMES={'2026-01':'Jan','2026-02':'Feb','2026-03':'Mar','2026-04':'Apr','2026-05':'May','2026-06':'Jun','2026-07':'Jul','2026-08':'Aug','2026-09':'Sep','2026-10':'Oct','2026-11':'Nov','2026-12':'Dec'};
+        const ATTENDANCE_PASSWORD = '1234'; // Attendance portal password
+        
+        let tchSelectedGrade = null;
+        let tchSelectedMonth = null;
+        
+        // Attendance state
+        let attSelectedTeacherId = null;
+        let attSelectedGrade = null;
+        let attCurrentDate = null;
+        let attCurrentStudents = [];
+        let attCurrentStatuses = {};
+
+        function initStorage(){
+            if(!localStorage.getItem('adminPass'))localStorage.setItem('adminPass','admin123');
+            if(!localStorage.getItem('editorPass'))localStorage.setItem('editorPass','editor456');
+            if(!localStorage.getItem('teachers'))localStorage.setItem('teachers','[]');
+            if(!localStorage.getItem('students'))localStorage.setItem('students','[]');
+            if(!localStorage.getItem('attendance'))localStorage.setItem('attendance','{}');
+            if(!localStorage.getItem('teacherPayments'))localStorage.setItem('teacherPayments','{}');
+            if(!localStorage.getItem('lastStudentId'))localStorage.setItem('lastStudentId','0');
+            if(!localStorage.getItem('lastTeacherId'))localStorage.setItem('lastTeacherId','0');
+            if(!localStorage.getItem('theme'))localStorage.setItem('theme','light');
+            if(!localStorage.getItem('designerPhoto'))localStorage.setItem('designerPhoto','');
+            if(!localStorage.getItem('studentPasswords'))localStorage.setItem('studentPasswords','{}');
+            if(!localStorage.getItem('teacherPasswords'))localStorage.setItem('teacherPasswords','{}');
+            if(!localStorage.getItem('archivedStudents'))localStorage.setItem('archivedStudents','[]');
+            applyTheme(localStorage.getItem('theme'));loadDesignerPhoto();
+        }
+
+        // ======================== ATTENDANCE FUNCTIONS ========================
+        function attLogin(){
+            const pass = document.getElementById('attPass').value.trim();
+            if(pass === ATTENDANCE_PASSWORD){
+                document.getElementById('attendanceLoginSection').style.display = 'none';
+                document.getElementById('attendanceDashboard').style.display = 'block';
+                // Set today's date
+                const today = new Date();
+                document.getElementById('attDate').value = today.toISOString().split('T')[0];
+                loadAttendanceData();
+            } else {
+                showMsg('attMsg','error','❌ Wrong password! Try: 1234');
+            }
+        }
+
+        function backToAttendanceLogin(){
+            document.getElementById('attendanceDashboard').style.display = 'none';
+            document.getElementById('attendanceLoginSection').style.display = 'flex';
+            document.getElementById('attPass').value = '';
+            resetAttendanceSteps();
+        }
+
+        function resetAttendanceSteps(){
+            attSelectedTeacherId = null;
+            attSelectedGrade = null;
+            attCurrentStudents = [];
+            attCurrentStatuses = {};
+            document.getElementById('attStep1').style.display = 'block';
+            document.getElementById('attStep2').style.display = 'none';
+            document.getElementById('attStep3').style.display = 'none';
+        }
+
+        function loadAttendanceData(){
+            resetAttendanceSteps();
+            const teachers = JSON.parse(localStorage.getItem('teachers')||'[]');
+            const container = document.getElementById('attTeacherCards');
+            if(teachers.length === 0){
+                container.innerHTML = '<p style="color:var(--text-muted);text-align:center;">No teachers registered</p>';
+                return;
+            }
+            container.innerHTML = teachers.map(t => `
+                <div class="teacher-card" onclick="selectAttendanceTeacher('${t.id}')">
+                    <div class="avatar">👨‍🏫</div>
+                    <strong>${t.name}</strong>
+                    <small>${t.subject||'N/A'} · ${(t.grades||[]).length} grades</small>
+                </div>
+            `).join('');
+        }
+
+        function selectAttendanceTeacher(teacherId){
+            const teacher = JSON.parse(localStorage.getItem('teachers')||'[]').find(t => t.id === teacherId);
+            if(!teacher) return;
+            
+            attSelectedTeacherId = teacherId;
+            document.getElementById('attStep1').style.display = 'none';
+            document.getElementById('attStep2').style.display = 'block';
+            document.getElementById('attSelectedTeacher').innerHTML = `👨‍🏫 ${teacher.name} <span style="font-size:0.8rem;color:var(--text-muted);">(${teacher.id})</span>`;
+            
+            const grades = teacher.grades || [];
+            const container = document.getElementById('attGradeCards');
+            if(grades.length === 0){
+                container.innerHTML = '<p style="color:var(--text-muted);">No grades assigned</p>';
+                return;
+            }
+            container.innerHTML = grades.map(g => `
+                <div class="grade-card" onclick="selectAttendanceGrade('${g}')">
+                    <strong>📚 ${g}</strong>
+                </div>
+            `).join('');
+        }
+
+        function backToTeacherSelection(){
+            document.getElementById('attStep2').style.display = 'none';
+            document.getElementById('attStep3').style.display = 'none';
+            document.getElementById('attStep1').style.display = 'block';
+            attSelectedTeacherId = null;
+            attSelectedGrade = null;
+        }
+
+        function selectAttendanceGrade(grade){
+            attSelectedGrade = grade;
+            attCurrentDate = document.getElementById('attDate').value;
+            
+            document.getElementById('attStep2').style.display = 'none';
+            document.getElementById('attStep3').style.display = 'block';
+            document.getElementById('attSelectedGrade').textContent = '📚 ' + grade;
+            document.getElementById('attDateDisplay').textContent = '📅 ' + attCurrentDate;
+            
+            loadStudentsForAttendance();
+        }
+
+        function backToGradeSelection(){
+            document.getElementById('attStep3').style.display = 'none';
+            document.getElementById('attStep2').style.display = 'block';
+            attSelectedGrade = null;
+            attCurrentStudents = [];
+            attCurrentStatuses = {};
+        }
+
+        function loadStudentsForAttendance(){
+            const allStudents = JSON.parse(localStorage.getItem('students')||'[]');
+            const allAttendance = JSON.parse(localStorage.getItem('attendance')||'{}');
+            
+            // Filter students by teacher and grade
+            attCurrentStudents = allStudents.filter(s => 
+                s.teacherIds && 
+                s.teacherIds.includes(attSelectedTeacherId) && 
+                (s.grades||[s.grade]).includes(attSelectedGrade)
+            );
+            
+            // Load existing attendance for this date
+            const dateKey = attCurrentDate;
+            const existingAttendance = allAttendance[dateKey] || {};
+            
+            attCurrentStatuses = {};
+            attCurrentStudents.forEach(s => {
+                attCurrentStatuses[s.id] = existingAttendance[s.id] || 'unmarked';
+            });
+            
+            renderAttendanceList();
+            updateAttendanceSummary();
+        }
+
+        function renderAttendanceList(){
+            const container = document.getElementById('attStudentList');
+            if(attCurrentStudents.length === 0){
+                container.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:20px;">No students found for this grade and teacher</p>';
+                return;
+            }
+            
+            container.innerHTML = attCurrentStudents.map(s => {
+                const status = attCurrentStatuses[s.id] || 'unmarked';
+                const statusClass = status === 'present' ? 'present' : (status === 'absent' ? 'absent' : (status === 'late' ? 'late' : ''));
+                const statusText = status === 'present' ? '✅ Present' : (status === 'absent' ? '❌ Absent' : (status === 'late' ? '⏰ Late' : '⬜ Unmarked'));
+                
+                return `
+                    <div class="attendance-student-card ${statusClass}" onclick="cycleAttendanceStatus('${s.id}')">
+                        <div style="display:flex;align-items:center;gap:12px;">
+                            <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--accent-purple),var(--accent-blue));display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🎓</div>
+                            <div>
+                                <div style="font-weight:600;font-size:0.9rem;color:var(--text-primary);">${s.name}</div>
+                                <div style="font-size:0.75rem;color:var(--text-muted);">${s.id}</div>
+                            </div>
+                        </div>
+                        <span class="attendance-status-badge" style="background:${status === 'present' ? 'rgba(16,185,129,0.12)' : (status === 'absent' ? 'rgba(239,68,68,0.1)' : (status === 'late' ? 'rgba(245,158,11,0.12)' : 'rgba(148,163,184,0.1)'))};color:${status === 'present' ? 'var(--success)' : (status === 'absent' ? 'var(--danger)' : (status === 'late' ? 'var(--accent-amber)' : 'var(--text-muted)'))}">
+                            ${statusText}
+                        </span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function cycleAttendanceStatus(studentId){
+            const statuses = ['unmarked', 'present', 'absent', 'late'];
+            const currentStatus = attCurrentStatuses[studentId] || 'unmarked';
+            const currentIndex = statuses.indexOf(currentStatus);
+            const nextIndex = (currentIndex + 1) % statuses.length;
+            attCurrentStatuses[studentId] = statuses[nextIndex];
+            
+            renderAttendanceList();
+            updateAttendanceSummary();
+        }
+
+        function markAllAttendance(status){
+            if(!confirm(`Mark ALL students as ${status}?`)) return;
+            
+            attCurrentStudents.forEach(s => {
+                attCurrentStatuses[s.id] = status;
+            });
+            
+            renderAttendanceList();
+            updateAttendanceSummary();
+        }
+
+        function updateAttendanceSummary(){
+            const total = attCurrentStudents.length;
+            const present = attCurrentStudents.filter(s => attCurrentStatuses[s.id] === 'present').length;
+            const absent = attCurrentStudents.filter(s => attCurrentStatuses[s.id] === 'absent').length;
+            const late = attCurrentStudents.filter(s => attCurrentStatuses[s.id] === 'late').length;
+            const unmarked = attCurrentStudents.filter(s => attCurrentStatuses[s.id] === 'unmarked').length;
+            
+            document.getElementById('attSummary').innerHTML = `
+                <div class="attendance-summary-card" style="border-left:3px solid var(--success);">
+                    <div style="font-size:2rem;color:var(--success);">✅</div>
+                    <div style="font-size:1.5rem;font-weight:700;">${present}</div>
+                    <div style="font-size:0.8rem;color:var(--text-muted);">Present</div>
+                </div>
+                <div class="attendance-summary-card" style="border-left:3px solid var(--danger);">
+                    <div style="font-size:2rem;color:var(--danger);">❌</div>
+                    <div style="font-size:1.5rem;font-weight:700;">${absent}</div>
+                    <div style="font-size:0.8rem;color:var(--text-muted);">Absent</div>
+                </div>
+                <div class="attendance-summary-card" style="border-left:3px solid var(--warning);">
+                    <div style="font-size:2rem;color:var(--accent-amber);">⏰</div>
+                    <div style="font-size:1.5rem;font-weight:700;">${late}</div>
+                    <div style="font-size:0.8rem;color:var(--text-muted);">Late</div>
+                </div>
+                <div class="attendance-summary-card" style="border-left:3px solid var(--text-muted);">
+                    <div style="font-size:2rem;">⬜</div>
+                    <div style="font-size:1.5rem;font-weight:700;">${unmarked}</div>
+                    <div style="font-size:0.8rem;color:var(--text-muted);">Unmarked</div>
+                </div>
+            `;
+        }
+
+        function saveAttendance(){
+            const allAttendance = JSON.parse(localStorage.getItem('attendance')||'{}');
+            const dateKey = attCurrentDate;
+            
+            if(!allAttendance[dateKey]){
+                allAttendance[dateKey] = {};
+            }
+            
+            // Save statuses for current students
+            attCurrentStudents.forEach(s => {
+                if(attCurrentStatuses[s.id] !== 'unmarked'){
+                    allAttendance[dateKey][s.id] = attCurrentStatuses[s.id];
+                } else {
+                    delete allAttendance[dateKey][s.id];
+                }
+            });
+            
+            // Clean up empty date entries
+            if(Object.keys(allAttendance[dateKey]).length === 0){
+                delete allAttendance[dateKey];
+            }
+            
+            localStorage.setItem('attendance', JSON.stringify(allAttendance));
+            showMsg('attSaveMsg','success','✅ Attendance saved successfully!');
+            
+            setTimeout(() => {
+                document.getElementById('attSaveMsg').className = 'msg';
+            }, 3000);
+        }
+
+        function searchAttendanceReport(){
+            const studentId = document.getElementById('attReportStudentId').value.trim();
+            if(!studentId) {
+                document.getElementById('attReportResult').innerHTML = '';
+                return;
+            }
+            
+            const student = JSON.parse(localStorage.getItem('students')||'[]').find(s => s.id === studentId);
+            if(!student) {
+                document.getElementById('attReportResult').innerHTML = '<p style="color:var(--danger);">❌ Student not found</p>';
+                return;
+            }
+            
+            const allAttendance = JSON.parse(localStorage.getItem('attendance')||'{}');
+            const attendanceRecords = {};
+            
+            Object.keys(allAttendance).forEach(date => {
+                if(allAttendance[date][studentId]){
+                    attendanceRecords[date] = allAttendance[date][studentId];
+                }
+            });
+            
+            const total = Object.keys(attendanceRecords).length;
+            const present = Object.values(attendanceRecords).filter(s => s === 'present').length;
+            const absent = Object.values(attendanceRecords).filter(s => s === 'absent').length;
+            const late = Object.values(attendanceRecords).filter(s => s === 'late').length;
+            
+            const recentRecords = Object.entries(attendanceRecords)
+                .sort((a, b) => b[0].localeCompare(a[0]))
+                .slice(0, 10);
+            
+            document.getElementById('attReportResult').innerHTML = `
+                <div style="padding:12px;border-radius:10px;background:var(--glass-bg);border:1px solid var(--glass-border);">
+                    <div style="font-weight:600;margin-bottom:8px;">👤 ${student.name} (${student.id})</div>
+                    <div style="display:flex;gap:16px;margin-bottom:8px;flex-wrap:wrap;">
+                        <span>✅ Present: <strong>${present}</strong></span>
+                        <span>❌ Absent: <strong>${absent}</strong></span>
+                        <span>⏰ Late: <strong>${late}</strong></span>
+                        <span>📊 Total: <strong>${total}</strong></span>
+                    </div>
+                    ${recentRecords.length > 0 ? `
+                        <div style="margin-top:8px;">
+                            <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:4px;">Recent Records:</div>
+                            ${recentRecords.map(([date, status]) => `
+                                <div style="font-size:0.8rem;padding:2px 0;">
+                                    📅 ${date}: ${status === 'present' ? '✅ Present' : (status === 'absent' ? '❌ Absent' : '⏰ Late')}
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : '<div style="color:var(--text-muted);font-size:0.8rem;">No attendance records</div>'}
+                </div>
+            `;
+        }
+
+        // ======================== STUDENT PROMOTION FUNCTIONS ========================
+        function promoteAllStudents(){
+            if(!confirm('⚠️ This will promote ALL students to the next grade.\n\n• Grade 6-10: Move to next grade\n• Grade 11: Archive and remove\n• All payment and attendance data will be preserved\n\nAre you sure?')) return;
+            
+            const students = JSON.parse(localStorage.getItem('students')||'[]');
+            const archived = JSON.parse(localStorage.getItem('archivedStudents')||'[]');
+            const now = new Date();
+            const timestamp = now.toISOString();
+            
+            const promoted = [];
+            const toArchive = [];
+            
+            students.forEach(student => {
+                const currentGrade = (student.grades||[student.grade||''])[0];
+                const gradeNumber = parseInt(currentGrade.replace('Grade ', ''));
+                
+                if(gradeNumber >= 11) {
+                    // Archive Grade 11 students
+                    toArchive.push({
+                        ...student,
+                        archivedAt: timestamp,
+                        completedGrade: currentGrade
+                    });
+                } else if(gradeNumber >= 6 && gradeNumber <= 10) {
+                    // Promote to next grade
+                    const nextGrade = `Grade ${gradeNumber + 1}`;
+                    student.grade = nextGrade;
+                    student.grades = [nextGrade];
+                    promoted.push(student);
+                }
+            });
+            
+            // Save promoted students back
+            const newStudents = [...promoted];
+            localStorage.setItem('students', JSON.stringify(newStudents));
+            
+            // Save archived students
+            const allArchived = [...archived, ...toArchive];
+            localStorage.setItem('archivedStudents', JSON.stringify(allArchived));
+            
+            // Update last student IDs if needed
+            if(promoted.length > 0) {
+                localStorage.setItem('lastStudentId', newStudents.length.toString());
+            }
+            
+            // Reload admin data
+            if(document.getElementById('adminDashboard').style.display === 'block'){
+                loadAdmin();
+            }
+            
+            showMsg('promotionMsg','success',`✅ Promotion complete!\n• ${promoted.length} students promoted\n• ${toArchive.length} students archived`);
+            
+            // Reload archived list
+            loadArchivedStudents();
+        }
+
+        function loadArchivedStudents(){
+            const archived = JSON.parse(localStorage.getItem('archivedStudents')||'[]');
+            const container = document.getElementById('archivedStudentsList');
+            
+            if(archived.length === 0){
+                container.innerHTML = '<p style="color:var(--text-muted);text-align:center;">No archived students</p>';
+                return;
+            }
+            
+            container.innerHTML = archived.map(s => {
+                const archiveDate = new Date(s.archivedAt);
+                return `
+                    <div class="list-item">
+                        <div>
+                            <strong>${s.name}</strong> | ${s.id} | Completed: ${s.completedGrade}
+                        </div>
+                        <div style="font-size:0.75rem;color:var(--text-muted);">
+                            Archived: ${archiveDate.toLocaleDateString()}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function clearArchivedStudents(){
+            if(!confirm('Delete ALL archived student records? This cannot be undone.')) return;
+            localStorage.setItem('archivedStudents', '[]');
+            loadArchivedStudents();
+            showMsg('promotionMsg','success','✅ Archive cleared!');
+        }
+
+        // ======================== TEACHER PASSWORD FUNCTIONS ========================
+        function getTeacherPasswords(){return JSON.parse(localStorage.getItem('teacherPasswords')||'{}');}
+        function setTeacherPasswords(data){localStorage.setItem('teacherPasswords',JSON.stringify(data));}
+        
+        function getTeacherPassword(teacherId){
+            const passwords = getTeacherPasswords();
+            if(passwords[teacherId]) return passwords[teacherId];
+            const defaultPass = 'tch' + teacherId.replace(/\D/g,'').slice(-3);
+            passwords[teacherId] = defaultPass;
+            setTeacherPasswords(passwords);
+            return defaultPass;
+        }
+
+        function setTeacherPassword(teacherId, newPass){
+            const passwords = getTeacherPasswords();
+            passwords[teacherId] = newPass;
+            setTeacherPasswords(passwords);
+        }
+
+        function autoGenerateTeacherPasswords(){
+            const teachers = JSON.parse(localStorage.getItem('teachers')||'[]');
+            const passwords = getTeacherPasswords();
+            teachers.forEach(t=>{
+                passwords[t.id] = 'tch' + Math.floor(100 + Math.random() * 900);
+            });
+            setTeacherPasswords(passwords);
+            refreshTeacherPasswordList();
+            showMsg('teacherPassMsg','success','✅ Teacher passwords generated!');
+        }
+
+        function resetAllTeacherPasswords(){
+            if(!confirm('Reset all teacher passwords?')) return;
+            const teachers = JSON.parse(localStorage.getItem('teachers')||'[]');
+            const passwords = {};
+            teachers.forEach(t=>{
+                passwords[t.id] = 'tch' + t.id.replace(/\D/g,'').slice(-3);
+            });
+            setTeacherPasswords(passwords);
+            refreshTeacherPasswordList();
+            showMsg('teacherPassMsg','success','✅ All teacher passwords reset!');
+        }
+
+        function refreshTeacherPasswordList(){
+            const teachers = JSON.parse(localStorage.getItem('teachers')||'[]');
+            const passwords = getTeacherPasswords();
+            const container = document.getElementById('teacherPasswordList');
+            if(!container) return;
+            if(teachers.length===0){
+                container.innerHTML = '<p style="color:var(--text-muted);text-align:center;">No teachers registered yet.</p>';
+                return;
+            }
+            container.innerHTML = teachers.map(t=>{
+                const pass = passwords[t.id] || getTeacherPassword(t.id);
+                return `<div class="list-item">
+                    <div><strong>${t.name}</strong> | ${t.id} | ${(t.grades||[]).join(', ')}</div>
+                    <div class="password-cell">
+                        <span class="badge badge-password">${pass}</span>
+                        <span class="lock-icon" onclick="openTeacherChangePassModal('${t.id}','${t.name.replace(/'/g,"\\'")}')" title="Change password">🔒</span>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function openTeacherChangePassModal(teacherId, teacherName){
+            const currentPass = getTeacherPassword(teacherId);
+            openEditModal(`
+                <h3>🔑 Change Password for ${teacherName}</h3>
+                <div class="form-group">
+                    <label>Current Password</label>
+                    <input type="text" id="currentTeacherPassDisplay" value="${currentPass}" readonly style="background:rgba(99,102,241,0.06);border-color:rgba(99,102,241,0.2);">
+                </div>
+                <div class="form-group">
+                    <label>New Password</label>
+                    <input type="text" id="newTeacherPass" placeholder="Enter new password" style="font-family:monospace;">
+                </div>
+                <p style="color:var(--text-muted);font-size:0.8rem;">Leave blank to auto-generate</p>
+                <div class="btn-row">
+                    <button class="btn btn-back" onclick="closeEditModal()">Cancel</button>
+                    <button class="btn btn-pink" onclick="saveTeacherPassword('${teacherId}')">💾 Save</button>
+                </div>
+            `);
+        }
+
+        function saveTeacherPassword(teacherId){
+            const newPassInput = document.getElementById('newTeacherPass');
+            let newPass = newPassInput.value.trim();
+            if(!newPass){
+                newPass = 'tch' + Math.floor(100 + Math.random() * 900);
+            }
+            if(newPass.length < 3){
+                alert('Password must be at least 3 characters');
+                return;
+            }
+            setTeacherPassword(teacherId, newPass);
+            closeEditModal();
+            refreshTeacherPasswordList();
+            showMsg('teacherPassMsg','success','✅ Password updated for teacher!');
+        }
+
+        // ======================== STUDENT PASSWORD FUNCTIONS ========================
+        function getStudentPasswords(){return JSON.parse(localStorage.getItem('studentPasswords')||'{}');}
+        function setStudentPasswords(data){localStorage.setItem('studentPasswords',JSON.stringify(data));}
+        
+        function getStudentPassword(studentId){
+            const passwords = getStudentPasswords();
+            if(passwords[studentId]) return passwords[studentId];
+            const defaultPass = 'stu' + studentId.replace(/\D/g,'').slice(-3);
+            passwords[studentId] = defaultPass;
+            setStudentPasswords(passwords);
+            return defaultPass;
+        }
+
+        function setStudentPassword(studentId, newPass){
+            const passwords = getStudentPasswords();
+            passwords[studentId] = newPass;
+            setStudentPasswords(passwords);
+        }
+
+        function autoGeneratePasswords(){
+            const students = JSON.parse(localStorage.getItem('students')||'[]');
+            const passwords = getStudentPasswords();
+            students.forEach(s=>{
+                passwords[s.id] = 'stu' + Math.floor(100 + Math.random() * 900);
+            });
+            setStudentPasswords(passwords);
+            refreshPasswordList();
+            showMsg('studentPassMsg','success','✅ Student passwords generated!');
+        }
+
+        function resetAllPasswords(){
+            if(!confirm('Reset all student passwords?')) return;
+            const students = JSON.parse(localStorage.getItem('students')||'[]');
+            const passwords = {};
+            students.forEach(s=>{
+                passwords[s.id] = 'stu' + s.id.replace(/\D/g,'').slice(-3);
+            });
+            setStudentPasswords(passwords);
+            refreshPasswordList();
+            showMsg('studentPassMsg','success','✅ All student passwords reset!');
+        }
+
+        function refreshPasswordList(){
+            const students = JSON.parse(localStorage.getItem('students')||'[]');
+            const passwords = getStudentPasswords();
+            const container = document.getElementById('studentPasswordList');
+            if(!container) return;
+            if(students.length===0){
+                container.innerHTML = '<p style="color:var(--text-muted);text-align:center;">No students registered yet.</p>';
+                return;
+            }
+            container.innerHTML = students.map(s=>{
+                const pass = passwords[s.id] || getStudentPassword(s.id);
+                return `<div class="list-item">
+                    <div><strong>${s.name}</strong> | ${s.id} | ${(s.grades||[s.grade||'']).join(', ')}</div>
+                    <div class="password-cell">
+                        <span class="badge badge-password">${pass}</span>
+                        <span class="lock-icon" onclick="openChangePasswordModal('${s.id}','${s.name.replace(/'/g,"\\'")}')" title="Change password">🔒</span>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function openChangePasswordModal(studentId, studentName){
+            const currentPass = getStudentPassword(studentId);
+            openEditModal(`
+                <h3>🔑 Change Password for ${studentName}</h3>
+                <div class="form-group">
+                    <label>Current Password</label>
+                    <input type="text" id="currentPassDisplay" value="${currentPass}" readonly style="background:rgba(99,102,241,0.06);border-color:rgba(99,102,241,0.2);">
+                </div>
+                <div class="form-group">
+                    <label>New Password</label>
+                    <input type="text" id="newStudentPass" placeholder="Enter new password" style="font-family:monospace;">
+                </div>
+                <p style="color:var(--text-muted);font-size:0.8rem;">Leave blank to auto-generate</p>
+                <div class="btn-row">
+                    <button class="btn btn-back" onclick="closeEditModal()">Cancel</button>
+                    <button class="btn btn-pink" onclick="saveStudentPassword('${studentId}')">💾 Save</button>
+                </div>
+            `);
+        }
+
+        function saveStudentPassword(studentId){
+            const newPassInput = document.getElementById('newStudentPass');
+            let newPass = newPassInput.value.trim();
+            if(!newPass){
+                newPass = 'stu' + Math.floor(100 + Math.random() * 900);
+            }
+            if(newPass.length < 3){
+                alert('Password must be at least 3 characters');
+                return;
+            }
+            setStudentPassword(studentId, newPass);
+            closeEditModal();
+            refreshPasswordList();
+            showMsg('studentPassMsg','success','✅ Password updated for student!');
+        }
+
+        // ======================== TEACHER PORTAL AUTH ========================
+        let _selectedTeacherId = null;
+
+        function verifyTeacherPass(){
+            const entered = document.getElementById('teacherPortalPass').value.trim();
+            if(!entered){
+                showMsg('tchPassMsg','error','Please enter your password');
+                return;
+            }
+            const passwords = getTeacherPasswords();
+            let foundTeacher = null;
+            for(const [id, pass] of Object.entries(passwords)){
+                if(pass === entered){
+                    foundTeacher = id;
+                    break;
+                }
+            }
+            if(foundTeacher){
+                _selectedTeacherId = foundTeacher;
+                document.getElementById('teacherPasswordSection').style.display='none';
+                document.getElementById('teacherSearchSection').style.display='flex';
+                document.getElementById('teacherIdInput').value = foundTeacher;
+                searchTeacherResults();
+            } else {
+                showMsg('tchPassMsg','error','❌ Invalid password!');
+            }
+        }
+
+        function backToTeacherPass(){
+            document.getElementById('teacherSearchSection').style.display='none';
+            document.getElementById('teacherFinalPassSection').style.display='none';
+            document.getElementById('teacherPasswordSection').style.display='flex';
+            document.getElementById('teacherPortalPass').value='';
+            document.getElementById('teacherDashboard').style.display='none';
+            _selectedTeacherId = null;
+        }
+
+        function backToTeacherSearchFromFinal(){
+            document.getElementById('teacherFinalPassSection').style.display='none';
+            document.getElementById('teacherSearchSection').style.display='flex';
+        }
+
+        function backToTeacherSearchFromDashboard(){
+            document.getElementById('teacherDashboard').style.display='none';
+            document.getElementById('teacherSearchSection').style.display='flex';
+            tchSelectedGrade = null;
+            tchSelectedMonth = null;
+        }
+
+        function autoSearchTeacher(){
+            const q = document.getElementById('teacherIdInput').value.trim().toLowerCase();
+            if(q.length < 1){ document.getElementById('teacherSearchResults').innerHTML=''; return; }
+            const all = JSON.parse(localStorage.getItem('teachers')||'[]');
+            const found = all.filter(t=>t.id.toLowerCase().includes(q)||t.name.toLowerCase().includes(q));
+            renderTeacherSearchCards(found);
+        }
+
+        function searchTeacherResults(){
+            const q = document.getElementById('teacherIdInput').value.trim().toLowerCase();
+            if(!q){ showMsg('tchSearchMsg','error','Enter a Teacher ID or name'); return; }
+            const all = JSON.parse(localStorage.getItem('teachers')||'[]');
+            const found = all.filter(t=>t.id.toLowerCase().includes(q)||t.name.toLowerCase().includes(q));
+            if(found.length===0){
+                document.getElementById('teacherSearchResults').innerHTML='<p style="color:var(--danger);text-align:center;margin-top:8px;">❌ No teacher found</p>';
+            } else {
+                renderTeacherSearchCards(found);
+            }
+        }
+
+        function renderTeacherSearchCards(list){
+            if(list.length===0){ document.getElementById('teacherSearchResults').innerHTML=''; return; }
+            document.getElementById('teacherSearchResults').innerHTML = '<div style="display:flex;flex-direction:column;gap:8px;margin-top:10px;">' +
+                list.map(t=>`<div onclick="selectTeacherForFinalPass('${t.id}','${t.name.replace(/'/g,"\\'")}')" style="cursor:pointer;padding:12px 16px;border-radius:12px;background:var(--glass-bg);border:1px solid var(--glass-border);backdrop-filter:var(--glass-blur);display:flex;align-items:center;gap:12px;transition:all 0.2s;" onmouseover="this.style.background='var(--glass-bg-hover)'" onmouseout="this.style.background='var(--glass-bg)'">
+                    <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--accent-teal),var(--accent-blue));display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">👨‍🏫</div>
+                    <div style="flex:1;text-align:left;">
+                        <div style="font-weight:600;color:var(--text-primary);">${t.name}</div>
+                        <div style="font-size:0.8rem;color:var(--text-secondary);">${t.id} · ${t.subject||'N/A'} · ${(t.grades||[]).join(', ')}</div>
+                    </div>
+                    <div style="color:var(--accent-teal);font-size:1.1rem;">→</div>
+                </div>`).join('') +
+            '</div>';
+        }
+
+        function selectTeacherForFinalPass(teacherId, teacherName){
+            _selectedTeacherId = teacherId;
+            document.getElementById('teacherSearchSection').style.display='none';
+            document.getElementById('teacherFinalPassSection').style.display='flex';
+            document.getElementById('finalPassTeacherName').innerHTML = '👤 <strong>' + teacherName + '</strong><br>Enter your password to access dashboard';
+            document.getElementById('teacherFinalPass').value = '';
+            document.getElementById('finalTchPassMsg').className = 'msg';
+            document.getElementById('finalTchPassMsg').textContent = '';
+        }
+
+        function verifyTeacherFinalPass(){
+            const entered = document.getElementById('teacherFinalPass').value.trim();
+            if(!entered){
+                showMsg('finalTchPassMsg','error','Please enter your password');
+                return;
+            }
+            const correctPass = getTeacherPassword(_selectedTeacherId);
+            if(entered === correctPass){
+                document.getElementById('teacherFinalPassSection').style.display='none';
+                openTeacherDashboard(_selectedTeacherId);
+            } else {
+                showMsg('finalTchPassMsg','error','❌ Wrong password!');
+                document.getElementById('teacherFinalPass').value = '';
+                document.getElementById('teacherFinalPass').focus();
+            }
+        }
+
+        function openTeacherDashboard(tid){
+            const t = JSON.parse(localStorage.getItem('teachers')||'[]').find(x=>x.id===tid);
+            if(!t) return;
+            document.getElementById('teacherDashboard').style.display='block';
+            tchSelectedGrade = null;
+            tchSelectedMonth = null;
+
+            document.getElementById('tchDashName').textContent = t.name;
+            document.getElementById('tchDashId').textContent = '🪪 ' + t.id;
+            document.getElementById('tchDashSubject').textContent = t.subject||'N/A';
+
+            const allStudents = JSON.parse(localStorage.getItem('students')||'[]');
+            const myStudents = allStudents.filter(s => s.teacherIds && s.teacherIds.includes(tid));
+
+            const grades = t.grades || [];
+            const gradeCardsContainer = document.getElementById('tchDashGradeCards');
+            if(grades.length === 0){
+                gradeCardsContainer.innerHTML = '<p style="color:var(--text-muted);">No grades assigned</p>';
+            } else {
+                gradeCardsContainer.innerHTML = grades.map(g => {
+                    const gradeStudents = myStudents.filter(s => (s.grades||[s.grade]).includes(g));
+                    return `<div class="grade-dashboard-card ${tchSelectedGrade===g?'selected':''}" onclick="selectTeacherGrade('${g}')">
+                        <div style="font-size:2rem;margin-bottom:8px;">📚</div>
+                        <div style="font-weight:700;font-size:1rem;color:var(--text-primary);">${g}</div>
+                        <div style="font-size:0.8rem;color:var(--text-secondary);margin-top:4px;">${gradeStudents.length} Student(s)</div>
+                    </div>`;
+                }).join('');
+            }
+
+            document.getElementById('tchGradeDetailSection').style.display = 'none';
+            document.getElementById('tchMonthGrid').innerHTML = '';
+            document.getElementById('tchStudentListByMonth').innerHTML = '';
+
+            const studentsContainer = document.getElementById('tchDashStudents');
+            if(myStudents.length===0){
+                studentsContainer.innerHTML = '<p style="color:var(--text-muted);padding:20px;text-align:center;">No students assigned to you yet.</p>';
+            } else {
+                studentsContainer.innerHTML = myStudents.map(s => `
+                    <div style="padding:14px;border-radius:12px;background:var(--glass-bg);border:1px solid var(--glass-border);display:flex;align-items:center;gap:12px;">
+                        <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--accent-purple),var(--accent-blue));display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🎓</div>
+                        <div>
+                            <div style="font-weight:600;font-size:0.9rem;color:var(--text-primary);">${s.name}</div>
+                            <div style="font-size:0.75rem;color:var(--text-muted);">${s.id} · ${(s.grades||[s.grade||'']).join(', ')}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function selectTeacherGrade(grade){
+            tchSelectedGrade = grade;
+            tchSelectedMonth = null;
+            document.querySelectorAll('.grade-dashboard-card').forEach(c => c.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            document.getElementById('tchGradeDetailSection').style.display = 'block';
+            document.getElementById('tchSelectedGradeTitle').textContent = '📚 ' + grade + ' - Monthly Payment Overview';
+            renderTeacherMonthGrid();
+            document.getElementById('tchStudentListByMonth').innerHTML = '';
+        }
+
+        function renderTeacherMonthGrid(){
+            const allPayments = JSON.parse(localStorage.getItem('teacherPayments')||'{}');
+            const tp = allPayments[_selectedTeacherId] || {};
+            const allStudents = JSON.parse(localStorage.getItem('students')||'[]');
+            const gradeStudents = allStudents.filter(s => s.teacherIds && s.teacherIds.includes(_selectedTeacherId) && (s.grades||[s.grade]).includes(tchSelectedGrade));
+            const container = document.getElementById('tchMonthGrid');
+            container.innerHTML = ALL_MONTHS.map(m => {
+                let paidCount = 0, unpaidCount = 0;
+                gradeStudents.forEach(s => { if(tp[m] && tp[m][s.id] === 'paid') paidCount++; else unpaidCount++; });
+                const isSelected = tchSelectedMonth === m;
+                return `<div class="month-cell ${paidCount > 0 ? 'paid' : 'unpaid'}" style="${isSelected ? 'outline:3px solid var(--accent-teal);outline-offset:2px;' : ''}" onclick="selectTeacherMonth('${m}')">
+                    <div style="font-weight:700;">${MONTH_NAMES[m]}</div><div style="font-size:9px;">2026</div><div style="margin-top:4px;font-size:10px;">✅ ${paidCount} | ❌ ${unpaidCount}</div>
+                </div>`;
+            }).join('');
+        }
+
+        function selectTeacherMonth(month){ tchSelectedMonth = month; renderTeacherMonthGrid(); renderStudentsForMonth(); }
+
+        function renderStudentsForMonth(){
+            if(!tchSelectedMonth || !tchSelectedGrade) return;
+            const allPayments = JSON.parse(localStorage.getItem('teacherPayments')||'{}');
+            const tp = allPayments[_selectedTeacherId] || {};
+            const allStudents = JSON.parse(localStorage.getItem('students')||'[]');
+            const gradeStudents = allStudents.filter(s => s.teacherIds && s.teacherIds.includes(_selectedTeacherId) && (s.grades||[s.grade]).includes(tchSelectedGrade));
+            let html = `<h4 style="margin-bottom:12px;color:var(--text-secondary);">📅 ${MONTH_NAMES[tchSelectedMonth]} 2026 - ${tchSelectedGrade} Students</h4>`;
+            if(gradeStudents.length === 0){ html += '<p style="color:var(--text-muted);">No students in this grade</p>'; }
+            else { gradeStudents.forEach(s => { const isPaid = tp[tchSelectedMonth] && tp[tchSelectedMonth][s.id] === 'paid'; html += `<div class="student-payment-row"><div style="display:flex;align-items:center;gap:10px;"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent-purple),var(--accent-blue));display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🎓</div><div><div style="font-weight:600;font-size:0.85rem;">${s.name}</div><div style="font-size:0.7rem;color:var(--text-muted);">${s.id}</div></div></div><span class="badge ${isPaid ? 'badge-success' : 'badge-danger'}" style="font-size:11px;">${isPaid ? '✅ Paid' : '❌ Unpaid'}</span></div>`; }); }
+            document.getElementById('tchStudentListByMonth').innerHTML = html;
+        }
+
+        function downloadGradePDF(type){
+            if(!tchSelectedGrade || !_selectedTeacherId) return;
+            const teacher = JSON.parse(localStorage.getItem('teachers')||'[]').find(t => t.id === _selectedTeacherId);
+            const allStudents = JSON.parse(localStorage.getItem('students')||'[]');
+            const allPayments = JSON.parse(localStorage.getItem('teacherPayments')||'{}');
+            const tp = allPayments[_selectedTeacherId] || {};
+            const gradeStudents = allStudents.filter(s => s.teacherIds && s.teacherIds.includes(_selectedTeacherId) && (s.grades||[s.grade]).includes(tchSelectedGrade));
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.setFontSize(16); doc.text('Bivora Educational Center', 105, 15, { align: 'center' });
+            doc.setFontSize(12); doc.text(`Teacher: ${teacher.name} (${teacher.id})`, 105, 22, { align: 'center' });
+            doc.text(`Grade: ${tchSelectedGrade}`, 105, 29, { align: 'center' });
+            doc.text(`Report Type: ${type === 'paid' ? 'Paid Students' : 'Unpaid Students'} - All Months`, 105, 36, { align: 'center' });
+            let yPos = 45;
+            ALL_MONTHS.forEach(month => {
+                const studentsForReport = gradeStudents.filter(s => { const isPaid = tp[month] && tp[month][s.id] === 'paid'; return type === 'paid' ? isPaid : !isPaid; });
+                if(studentsForReport.length > 0){
+                    if(yPos > 250){ doc.addPage(); yPos = 20; }
+                    doc.setFontSize(11); doc.text(`${MONTH_NAMES[month]} 2026`, 14, yPos); doc.setFontSize(10); yPos += 6;
+                    studentsForReport.forEach(s => { if(yPos > 275){ doc.addPage(); yPos = 20; } doc.text(`  ${s.name} (${s.id})`, 20, yPos); yPos += 5; });
+                    yPos += 3;
+                }
+            });
+            doc.save(`${type}_students_${tchSelectedGrade.replace(' ','_')}_${teacher.id}.pdf`);
+        }
+
+        // ======================== STUDENT PORTAL AUTH ========================
+        let _selectedStudentId = null;
+
+        function verifyStudentPass(){
+            const entered = document.getElementById('studentPortalPass').value.trim();
+            if(!entered){ showMsg('stuPassMsg','error','Please enter your password'); return; }
+            const passwords = getStudentPasswords();
+            let foundStudent = null;
+            for(const [id, pass] of Object.entries(passwords)){ if(pass === entered){ foundStudent = id; break; } }
+            if(foundStudent){ _selectedStudentId = foundStudent; document.getElementById('studentPasswordSection').style.display='none'; document.getElementById('studentSearchSection').style.display='flex'; document.getElementById('studentIdInput').value = foundStudent; searchAndShowResults(); }
+            else { showMsg('stuPassMsg','error','❌ Invalid password!'); }
+        }
+
+        function backToStudentPass(){ document.getElementById('studentSearchSection').style.display='none'; document.getElementById('studentFinalPassSection').style.display='none'; document.getElementById('studentPasswordSection').style.display='flex'; document.getElementById('studentPortalPass').value=''; document.getElementById('studentDashboard').style.display='none'; _selectedStudentId = null; }
+        function backToStudentSearchFromFinal(){ document.getElementById('studentFinalPassSection').style.display='none'; document.getElementById('studentSearchSection').style.display='flex'; }
+        function backToStudentSearchFromDashboard(){ document.getElementById('studentDashboard').style.display='none'; document.getElementById('studentSearchSection').style.display='flex'; }
+
+        function autoSearchStudent(){
+            const q = document.getElementById('studentIdInput').value.trim().toLowerCase();
+            if(q.length < 1){ document.getElementById('studentSearchResults').innerHTML=''; return; }
+            const all = JSON.parse(localStorage.getItem('students')||'[]');
+            const found = all.filter(s=>s.id.toLowerCase().includes(q)||s.name.toLowerCase().includes(q));
+            renderStudentSearchCards(found);
+        }
+
+        function searchAndShowResults(){
+            const q = document.getElementById('studentIdInput').value.trim().toLowerCase();
+            if(!q){ showMsg('stuSearchMsg','error','Enter a Student ID or name'); return; }
+            const all = JSON.parse(localStorage.getItem('students')||'[]');
+            const found = all.filter(s=>s.id.toLowerCase().includes(q)||s.name.toLowerCase().includes(q));
+            if(found.length===0){ document.getElementById('studentSearchResults').innerHTML='<p style="color:var(--danger);text-align:center;margin-top:8px;">❌ No student found</p>'; }
+            else { renderStudentSearchCards(found); }
+        }
+
+        function renderStudentSearchCards(list){
+            if(list.length===0){ document.getElementById('studentSearchResults').innerHTML=''; return; }
+            document.getElementById('studentSearchResults').innerHTML = '<div style="display:flex;flex-direction:column;gap:8px;margin-top:10px;">' + list.map(s=>`<div onclick="selectStudentForFinalPass('${s.id}','${s.name.replace(/'/g,"\\'")}')" style="cursor:pointer;padding:12px 16px;border-radius:12px;background:var(--glass-bg);border:1px solid var(--glass-border);backdrop-filter:var(--glass-blur);display:flex;align-items:center;gap:12px;transition:all 0.2s;" onmouseover="this.style.background='var(--glass-bg-hover)'" onmouseout="this.style.background='var(--glass-bg)'"><div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--accent-teal),var(--accent-blue));display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🎓</div><div style="flex:1;text-align:left;"><div style="font-weight:600;color:var(--text-primary);">${s.name}</div><div style="font-size:0.8rem;color:var(--text-secondary);">${s.id} · ${(s.grades||[s.grade||'']).join(', ')}</div></div><div style="color:var(--accent-teal);font-size:1.1rem;">→</div></div>`).join('') + '</div>';
+        }
+
+        function selectStudentForFinalPass(studentId, studentName){ _selectedStudentId = studentId; document.getElementById('studentSearchSection').style.display='none'; document.getElementById('studentFinalPassSection').style.display='flex'; document.getElementById('finalPassStudentName').innerHTML = '👤 <strong>' + studentName + '</strong><br>Enter your password to access dashboard'; document.getElementById('studentFinalPass').value = ''; document.getElementById('finalPassMsg').className = 'msg'; document.getElementById('finalPassMsg').textContent = ''; }
+
+        function verifyFinalPass(){
+            const entered = document.getElementById('studentFinalPass').value.trim();
+            if(!entered){ showMsg('finalPassMsg','error','Please enter your password'); return; }
+            const correctPass = getStudentPassword(_selectedStudentId);
+            if(entered === correctPass){ document.getElementById('studentFinalPassSection').style.display='none'; openStudentDashboard(_selectedStudentId); }
+            else { showMsg('finalPassMsg','error','❌ Wrong password!'); document.getElementById('studentFinalPass').value = ''; document.getElementById('studentFinalPass').focus(); }
+        }
+
+        function openStudentDashboard(sid){
+            const s = JSON.parse(localStorage.getItem('students')||'[]').find(x=>x.id===sid);
+            if(!s) return;
+            document.getElementById('studentDashboard').style.display='block';
+            document.getElementById('stuDashName').textContent = s.name;
+            document.getElementById('stuDashId').textContent = '🪪 ' + s.id;
+            document.getElementById('stuDashGrade').textContent = (s.grades||[s.grade||'']).join(', ');
+            document.getElementById('stuDashEmail').textContent = s.email||'—';
+            document.getElementById('stuDashPhone').textContent = s.phone||'—';
+            
+            // Teachers section
+            const teachers = s.teachers||[];
+            const teacherEl = document.getElementById('stuDashTeachers');
+            if(teachers.length===0){ teacherEl.innerHTML='<p style="color:var(--text-muted);">No teachers assigned</p>'; }
+            else { teacherEl.innerHTML = teachers.map(t=>`<div style="padding:14px;border-radius:12px;background:var(--glass-bg);border:1px solid var(--glass-border);display:flex;align-items:center;gap:10px;"><div style="font-size:22px;">👨‍🏫</div><div><div style="font-weight:600;font-size:0.9rem;">${t.name}</div><div style="font-size:0.75rem;color:var(--text-muted);">${t.subject||'N/A'}</div></div></div>`).join(''); }
+            
+            // Attendance section
+            const allAttendance = JSON.parse(localStorage.getItem('attendance')||'{}');
+            const attendanceRecords = {};
+            Object.keys(allAttendance).forEach(date => {
+                if(allAttendance[date][sid]){
+                    attendanceRecords[date] = allAttendance[date][sid];
+                }
+            });
+            const total = Object.keys(attendanceRecords).length;
+            const present = Object.values(attendanceRecords).filter(s => s === 'present').length;
+            const absent = Object.values(attendanceRecords).filter(s => s === 'absent').length;
+            const late = Object.values(attendanceRecords).filter(s => s === 'late').length;
+            
+            document.getElementById('stuDashAttendance').innerHTML = `
+                <div style="display:flex;gap:16px;flex-wrap:wrap;">
+                    <div style="text-align:center;flex:1;min-width:80px;">
+                        <div style="font-size:1.5rem;color:var(--success);">✅</div>
+                        <div style="font-weight:600;">${present}</div>
+                        <div style="font-size:0.7rem;color:var(--text-muted);">Present</div>
+                    </div>
+                    <div style="text-align:center;flex:1;min-width:80px;">
+                        <div style="font-size:1.5rem;color:var(--danger);">❌</div>
+                        <div style="font-weight:600;">${absent}</div>
+                        <div style="font-size:0.7rem;color:var(--text-muted);">Absent</div>
+                    </div>
+                    <div style="text-align:center;flex:1;min-width:80px;">
+                        <div style="font-size:1.5rem;color:var(--warning);">⏰</div>
+                        <div style="font-weight:600;">${late}</div>
+                        <div style="font-size:0.7rem;color:var(--text-muted);">Late</div>
+                    </div>
+                    <div style="text-align:center;flex:1;min-width:80px;">
+                        <div style="font-size:1.5rem;">📊</div>
+                        <div style="font-weight:600;">${total}</div>
+                        <div style="font-size:0.7rem;color:var(--text-muted);">Total</div>
+                    </div>
+                </div>
+            `;
+            
+            // Payments section
+            const allPayments = JSON.parse(localStorage.getItem('teacherPayments')||'{}');
+            let paidCount=0, totalCount=0; let payHTML = '';
+            if(teachers.length===0){ payHTML = '<p style="color:var(--text-muted);">No payment records</p>'; }
+            else { teachers.forEach(t=>{ const tp = allPayments[t.id]||{}; payHTML += `<div style="margin-bottom:18px;"><div style="font-weight:600;margin-bottom:8px;color:var(--accent-teal);">👨‍🏫 ${t.name} <span style="font-size:0.8rem;color:var(--text-muted);">(${t.subject||'N/A'})</span></div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:6px;">`; ALL_MONTHS.forEach(m=>{ const paid = tp[m]&&tp[m][sid]==='paid'; if(paid) paidCount++; totalCount++; payHTML += `<div style="padding:8px 4px;border-radius:8px;text-align:center;font-size:10px;background:${paid?'rgba(16,185,129,0.12)':'rgba(239,68,68,0.07)'};border:1px solid ${paid?'rgba(16,185,129,0.25)':'rgba(239,68,68,0.15)'};color:${paid?'var(--success)':'var(--danger)'};"><div style="font-size:14px;">${paid?'✅':'❌'}</div><div style="margin-top:2px;font-weight:600;">${MONTH_NAMES[m]}</div></div>`; }); payHTML += '</div></div>'; }); }
+            document.getElementById('stuDashPayments').innerHTML = payHTML;
+            const pct = totalCount>0?Math.round(paidCount/totalCount*100):0;
+            document.getElementById('stuDashPaySummary').innerHTML = `<span style="color:var(--success);">${paidCount} Paid</span> / <span style="color:var(--danger);">${totalCount-paidCount} Unpaid</span><div style="margin-top:6px;height:6px;border-radius:3px;background:rgba(0,0,0,0.08);overflow:hidden;"><div style="height:100%;width:${pct}%;background:var(--success);border-radius:3px;transition:width 0.5s;"></div></div>`;
+        }
+
+        // ======================== PHOTO FUNCTIONS ========================
+        function loadDesignerPhoto(){
+            const photoData=localStorage.getItem('designerPhoto')||'';
+            document.querySelectorAll('#designerPhotoImg').forEach(img=>{if(photoData){img.src=photoData;img.style.display='block';}else{img.style.display='none';}});
+            document.querySelectorAll('#designerPhotoFallback').forEach(fb=>{fb.style.display=photoData?'none':'flex';});
+            const pi=document.getElementById('photoPreviewImg'),pp=document.getElementById('photoPlaceholder');
+            if(pi&&pp){if(photoData){pi.src=photoData;pi.style.display='block';pp.style.display='none';}else{pi.style.display='none';pp.style.display='block';}}
+        }
+        function handlePhotoUpload(event){const f=event.target.files[0];if(!f)return;if(f.size>2*1024*1024){alert('Photo under 2MB!');return;}const r=new FileReader();r.onload=function(e){document.getElementById('photoPreviewImg').src=e.target.result;document.getElementById('photoPreviewImg').style.display='block';document.getElementById('photoPlaceholder').style.display='none';window._tempPhoto=e.target.result;};r.readAsDataURL(f);}
+        function saveDesignerPhoto(){if(!window._tempPhoto){showMsg('photoMsg','error','Select a photo first!');return;}localStorage.setItem('designerPhoto',window._tempPhoto);loadDesignerPhoto();showMsg('photoMsg','success','✅ Photo saved!');}
+        function removeDesignerPhoto(){if(confirm('Remove photo?')){localStorage.setItem('designerPhoto','');window._tempPhoto=null;document.getElementById('photoPreviewImg').style.display='none';document.getElementById('photoPlaceholder').style.display='block';document.getElementById('photoUploadInput').value='';loadDesignerPhoto();showMsg('photoMsg','success','Photo removed.');}}
+
+        // ======================== TEACHER/STUDENT CRUD ========================
+        function generateTeacherAutoId(p='TCH'){const l=parseInt(localStorage.getItem('lastTeacherId')||'0');const t=JSON.parse(localStorage.getItem('teachers')||'[]');let n=l+1;while(t.find(x=>x.id===p+String(n).padStart(3,'0')))n++;const id=p+String(n).padStart(3,'0');document.getElementById('tId').value=id;localStorage.setItem('lastTeacherId',n.toString());checkTeacherId();return id;}
+        function checkTeacherId(){const tid=document.getElementById('tId').value.trim();const s=document.getElementById('teacherIdStatus');const t=JSON.parse(localStorage.getItem('teachers')||'[]');if(!tid){s.innerHTML='<span style="color:var(--accent-teal);">✅ Auto if empty</span>';return true;}if(t.find(x=>x.id===tid)){s.innerHTML='<span style="color:var(--danger);">❌ ID exists!</span>';return false;}else{s.innerHTML='<span style="color:var(--success);">✅ Available</span>';return true;}}
+        function generateStudentAutoId(p='STU'){const l=parseInt(localStorage.getItem('lastStudentId')||'0');const s=JSON.parse(localStorage.getItem('students')||'[]');let n=l+1;while(s.find(x=>x.id===p+String(n).padStart(3,'0')))n++;const id=p+String(n).padStart(3,'0');document.getElementById('sId').value=id;localStorage.setItem('lastStudentId',n.toString());checkStudentId();return id;}
+        function checkStudentId(){const sid=document.getElementById('sId').value.trim();const st=document.getElementById('studentIdStatus');const s=JSON.parse(localStorage.getItem('students')||'[]');if(!sid){st.innerHTML='<span style="color:var(--accent-teal);">✅ Auto if empty</span>';return true;}if(s.find(x=>x.id===sid)){st.innerHTML='<span style="color:var(--danger);">❌ ID exists!</span>';return false;}else{st.innerHTML='<span style="color:var(--success);">✅ Available</span>';return true;}}
+
+        let selectedGrade=null,selectedTeacherIds=[];
+        function handleGradeSelection(cb){const l=document.querySelectorAll('#studentGradeGroup label');if(cb.checked){selectedGrade=cb.value;l.forEach(x=>{const c=x.querySelector('input');if(c.value===selectedGrade){x.classList.add('selected');x.classList.remove('locked');c.disabled=false;}else{x.classList.remove('selected');x.classList.add('locked');c.checked=false;c.disabled=true;}});document.getElementById('gradeSelectionStatus').innerHTML='✅ <strong style="color:var(--accent-teal);">'+selectedGrade+'</strong> - locked 🔒';loadTeachersForGrade(selectedGrade);}else{selectedGrade=null;selectedTeacherIds=[];l.forEach(x=>{x.classList.remove('selected','locked');const c=x.querySelector('input');c.checked=false;c.disabled=false;});document.getElementById('gradeSelectionStatus').innerHTML='No grade selected';document.getElementById('teacherSelectionSection').style.display='none';}}
+        function loadTeachersForGrade(g){const t=JSON.parse(localStorage.getItem('teachers')||'[]').filter(x=>x.grades&&x.grades.includes(g));selectedTeacherIds=[];document.getElementById('teacherSelectionSection').style.display='block';document.getElementById('teacherSelectCards').innerHTML=t.length===0?'<p style="color:var(--text-muted);">No teachers for '+g+'</p>':t.map(x=>`<div class="teacher-select-card" onclick="toggleTeacherSelect('${x.id}',this)" data-tid="${x.id}"><div class="t-avatar">👨‍🏫</div><div class="t-info"><strong>${x.name}</strong><small>${x.subject||'N/A'}</small></div><div class="check-dot"></div></div>`).join('');updateTeacherCount();}
+        function toggleTeacherSelect(tid,el){const i=selectedTeacherIds.indexOf(tid);if(i===-1){selectedTeacherIds.push(tid);el.classList.add('selected');}else{selectedTeacherIds.splice(i,1);el.classList.remove('selected');}updateTeacherCount();}
+        function updateTeacherCount(){document.getElementById('selectedTeachersCount').textContent=selectedTeacherIds.length;}
+        function resetGradeAndTeachers(){selectedGrade=null;selectedTeacherIds=[];document.querySelectorAll('#studentGradeGroup label').forEach(l=>{l.classList.remove('selected','locked');const c=l.querySelector('input');c.checked=false;c.disabled=false;});document.getElementById('gradeSelectionStatus').innerHTML='No grade selected';document.getElementById('teacherSelectionSection').style.display='none';updateTeacherCount();}
+
+        function getTP(tid){const a=JSON.parse(localStorage.getItem('teacherPayments')||'{}');if(!a[tid])a[tid]={};return a[tid];}
+        function setTP(tid,m,sid,st){const a=JSON.parse(localStorage.getItem('teacherPayments')||'{}');if(!a[tid])a[tid]={};if(!a[tid][m])a[tid][m]={};a[tid][m][sid]=st;localStorage.setItem('teacherPayments',JSON.stringify(a));}
+        function findNext(tid,sid){const tp=getTP(tid);for(let m of ALL_MONTHS){if(!tp[m])tp[m]={};if(tp[m][sid]!=='paid')return m;}return null;}
+        function switchSubTab(id){document.querySelectorAll('#tabPayment .sub-tabs button').forEach(b=>b.classList.remove('sub-active'));document.querySelectorAll('#tabPayment .sub-panel').forEach(p=>p.classList.remove('sub-active'));document.getElementById(id).classList.add('sub-active');event.target.classList.add('sub-active');if(id==='subPay'){loadPayTeachers();resetPaySteps();}else loadInfoTeachers();}
+        let payTid=null,payGrade=null,payMonth=null;
+        function resetPaySteps(){payTid=null;payGrade=null;payMonth=null;document.getElementById('payStep2').style.display='none';document.getElementById('payStep3').style.display='none';}
+        function loadPayTeachers(){resetPaySteps();const t=JSON.parse(localStorage.getItem('teachers')||'[]');document.getElementById('payTeacherCards').innerHTML=t.map(x=>`<div class="teacher-card" onclick="selectPayTeacher('${x.id}','${x.name.replace(/'/g,"\\'")}',this)"><div class="avatar">👨‍🏫</div><strong>${x.name}</strong><small>${x.subject||''}</small></div>`).join('');}
+        function selectPayTeacher(tid,tname,el){document.querySelectorAll('#payTeacherCards .teacher-card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');payTid=tid;payGrade=null;const t=JSON.parse(localStorage.getItem('teachers')||'[]').find(x=>x.id===tid);document.getElementById('payStep2').style.display='block';document.getElementById('payStep3').style.display='none';if(t&&t.grades)document.getElementById('payGradeCards').innerHTML=t.grades.map(g=>`<div class="grade-card" onclick="selectPayGrade('${g}',this)"><strong>📚 ${g}</strong></div>`).join('');}
+        function selectPayGrade(g,el){document.querySelectorAll('#payGradeCards .grade-card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');payGrade=g;payMonth=null;document.getElementById('payStep3').style.display='block';document.getElementById('payStudentId').value='';document.getElementById('payCurrentMonth').value='Enter ID...';document.getElementById('payStudentResult').innerHTML='';document.getElementById('payMonthStatus').innerHTML='';}
+        function searchPayStudent(){const sid=document.getElementById('payStudentId').value.trim();if(!sid||!payTid||!payGrade)return;const s=JSON.parse(localStorage.getItem('students')||'[]').find(x=>x.id===sid);if(!s){document.getElementById('payStudentResult').innerHTML='<div style="padding:12px;border-radius:10px;background:var(--glass-bg);"><p style="color:var(--danger);">❌ Not found</p></div>';return;}const next=findNext(payTid,sid);payMonth=next;document.getElementById('payCurrentMonth').value=next?MONTH_NAMES[next]+' 2026':'✅ ALL PAID';const tp=getTP(payTid);document.getElementById('payMonthStatus').innerHTML='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:5px;">'+ALL_MONTHS.map(m=>{const p=tp[m]&&tp[m][sid]==='paid';return '<div style="padding:8px;border-radius:6px;text-align:center;font-size:10px;">'+(p?'✅':(m===next?'💳':'·'))+'<br>'+MONTH_NAMES[m]+'</div>';}).join('')+'</div>';document.getElementById('payStudentResult').innerHTML='<div style="padding:12px;border-radius:10px;background:var(--glass-bg);display:flex;justify-content:space-between;align-items:center;"><div><strong>👤 '+s.name+'</strong> | '+s.id+'</div>'+(next?`<button class="btn btn-teal btn-sm" onclick="markPay('${sid}')">✅ Pay ${MONTH_NAMES[next]}</button>`:'<span class="badge badge-success">All Paid</span>')+'</div>';}
+        function markPay(sid){if(!payMonth||!payTid)return;setTP(payTid,payMonth,sid,'paid');showMsg('paymentMsg','success','✅ Paid!');setTimeout(searchPayStudent,400);}
+        let infoTid=null,infoGrade=null;
+        function loadInfoTeachers(){const t=JSON.parse(localStorage.getItem('teachers')||'[]');document.getElementById('infoTeacherCards').innerHTML=t.map(x=>`<div class="teacher-card ${infoTid===x.id?'selected':''}" onclick="selectInfoTeacher('${x.id}',this)"><div class="avatar">👨‍🏫</div><strong>${x.name}</strong><small>${x.subject||''}</small></div>`).join('');document.getElementById('infoGradeSection').style.display='none';document.getElementById('infoStudentSection').style.display='none';}
+        function selectInfoTeacher(tid,el){document.querySelectorAll('#infoTeacherCards .teacher-card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');infoTid=tid;infoGrade=null;const t=JSON.parse(localStorage.getItem('teachers')||'[]').find(x=>x.id===tid);if(!t||!t.grades)return;document.getElementById('infoGradeSection').style.display='block';document.getElementById('infoGradeCards').innerHTML=t.grades.map(g=>`<div class="grade-card ${infoGrade===g?'selected':''}" onclick="selectInfoGrade('${g}',this)"><strong>📚 ${g}</strong></div>`).join('');}
+        function selectInfoGrade(g,el){document.querySelectorAll('#infoGradeCards .grade-card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');infoGrade=g;document.getElementById('infoStudentSection').style.display='block';document.getElementById('infoStudentId').value='';}
+        function searchInfoStudent(){const sid=document.getElementById('infoStudentId').value.trim();if(!sid||!infoTid)return;const s=JSON.parse(localStorage.getItem('students')||'[]').find(x=>x.id===sid);if(!s){document.getElementById('infoStudentResult').innerHTML='<p style="color:var(--danger);">❌ Not found</p>';return;}const tp=getTP(infoTid);document.getElementById('infoStudentResult').innerHTML='<div style="padding:12px;border-radius:10px;background:var(--glass-bg);"><strong>👤 '+s.name+'</strong> | '+s.id+'<br>'+ALL_MONTHS.map(m=>{const p=tp[m]&&tp[m][sid]==='paid';return '<div class="student-payment-row"><span>'+MONTH_NAMES[m]+' <span class="badge '+(p?'badge-success':'badge-danger')+'">'+(p?'Paid':'Unpaid')+'</span></span><span><button class="btn btn-teal btn-xs" onclick="editPay(\''+sid+'\',\''+m+'\',\'paid\')" '+(p?'disabled':'')+'>✅</button> <button class="btn btn-red btn-xs" onclick="editPay(\''+sid+'\',\''+m+'\',\'unpaid\')" '+(!p?'disabled':'')+'>❌</button></span></div>';}).join('')+'</div>';}
+        function editPay(sid,m,status){if(!infoTid)return;setTP(infoTid,m,sid,status);showMsg('paymentMsg','success','Updated!');searchInfoStudent();}
+
+        // ======================== ADMIN FUNCTIONS ========================
+        function adminLogin(){if(document.getElementById('adminPass').value===localStorage.getItem('adminPass')){document.getElementById('adminLoginSection').style.display='none';document.getElementById('adminDashboard').style.display='block';document.getElementById('adminLogoutBtn').style.display='inline-block';loadAdmin();}else showMsg('adminError','error','Wrong');}
+        function adminLogout(){document.getElementById('adminLoginSection').style.display='flex';document.getElementById('adminDashboard').style.display='none';document.getElementById('adminLogoutBtn').style.display='none';}
+        function loadAdmin(){
+            loadPayTeachers();loadInfoTeachers();
+            if(document.getElementById('tId')&&document.getElementById('tId').value==='')generateTeacherAutoId();
+            if(document.getElementById('sId')&&document.getElementById('sId').value==='')generateStudentAutoId();
+            searchTeachers();searchStudents();loadArchivedStudents();
+        }
+        function switchAdminTab(id){
+            document.querySelectorAll('#adminDashboard .admin-tabs button').forEach(b=>b.classList.remove('tab-active'));
+            document.querySelectorAll('#adminDashboard .tab-panel').forEach(p=>p.classList.remove('tab-active'));
+            document.getElementById(id).classList.add('tab-active');event.target.classList.add('tab-active');
+            if(id==='tabTeacher'){searchTeachers();if(document.getElementById('tId').value==='')generateTeacherAutoId();}
+            if(id==='tabStudent'){searchStudents();if(document.getElementById('sId').value==='')generateStudentAutoId();}
+            if(id==='tabPayment'){loadPayTeachers();loadInfoTeachers();}
+            if(id==='tabPasswords'){refreshPasswordList();refreshTeacherPasswordList();}
+            if(id==='tabPromotion'){loadArchivedStudents();}
+        }
+        function addTeacher(){
+            const n=document.getElementById('tName').value.trim();let id=document.getElementById('tId').value.trim();
+            if(!n){showMsg('teacherMsg','error','Name required');return;}
+            if(!id)id=generateTeacherAutoId();
+            if(!checkTeacherId()){showMsg('teacherMsg','error','❌ ID exists!');return;}
+            const t=JSON.parse(localStorage.getItem('teachers'));const g=[];document.querySelectorAll('.tGrade:checked').forEach(c=>g.push(c.value));
+            if(g.length===0){showMsg('teacherMsg','error','Select grades');return;}
+            t.push({name:n,id,subject:document.getElementById('tSubject').value.trim(),email:document.getElementById('tEmail').value.trim(),grades:g});
+            localStorage.setItem('teachers',JSON.stringify(t));
+            const passwords = getTeacherPasswords();
+            if(!passwords[id]) { passwords[id] = 'tch' + id.replace(/\D/g,'').slice(-3); setTeacherPasswords(passwords); }
+            ['tName','tId','tSubject','tEmail'].forEach(i=>document.getElementById(i).value='');
+            document.querySelectorAll('.tGrade').forEach(c=>c.checked=false);
+            showMsg('teacherMsg','success','✅ Registered! Password: ' + passwords[id]);
+            setTimeout(()=>{if(document.getElementById('tId').value==='')generateTeacherAutoId();},500);
+            searchTeachers(); refreshTeacherPasswordList();
+        }
+        function addStudent(){
+            const n=document.getElementById('sName').value.trim();let id=document.getElementById('sId').value.trim();
+            if(!n){showMsg('studentMsg','error','Name required');return;}
+            if(!selectedGrade){showMsg('studentMsg','error','Select grade!');return;}
+            if(!id)id=generateStudentAutoId();
+            if(!checkStudentId()){showMsg('studentMsg','error','❌ ID exists!');return;}
+            const s=JSON.parse(localStorage.getItem('students'));const allT=JSON.parse(localStorage.getItem('teachers')||'[]');
+            const selT=allT.filter(t=>selectedTeacherIds.includes(t.id));
+            s.push({name:n,id,grade:selectedGrade,grades:[selectedGrade],email:document.getElementById('sEmail').value.trim(),phone:document.getElementById('sPhone').value.trim(),teacherIds:selectedTeacherIds,teachers:selT.map(t=>({id:t.id,name:t.name,subject:t.subject}))});
+            localStorage.setItem('students',JSON.stringify(s));
+            const passwords = getStudentPasswords();
+            if(!passwords[id]) { passwords[id] = 'stu' + id.replace(/\D/g,'').slice(-3); setStudentPasswords(passwords); }
+            ['sName','sId','sEmail','sPhone'].forEach(i=>document.getElementById(i).value='');
+            resetGradeAndTeachers();
+            showMsg('studentMsg','success','✅ Registered! Password: ' + passwords[id]);
+            setTimeout(()=>{if(document.getElementById('sId').value==='')generateStudentAutoId();},500);
+            searchStudents(); refreshPasswordList();
+        }
+
+        let filteredTeachers=[],filteredStudents=[];
+        function searchTeachers(){const q=document.getElementById('teacherSearchInput').value.trim().toLowerCase();const allT=JSON.parse(localStorage.getItem('teachers')||'[]');if(!q){filteredTeachers=allT;document.getElementById('teacherSearchCount').textContent='';}else{filteredTeachers=allT.filter(t=>t.id.toLowerCase().includes(q)||t.name.toLowerCase().includes(q));document.getElementById('teacherSearchCount').textContent='Found '+filteredTeachers.length;}renderTeacherList(filteredTeachers);}
+        function clearTeacherSearch(){document.getElementById('teacherSearchInput').value='';filteredTeachers=JSON.parse(localStorage.getItem('teachers')||'[]');document.getElementById('teacherSearchCount').textContent='';renderTeacherList(filteredTeachers);}
+        function searchStudents(){const q=document.getElementById('studentSearchInput').value.trim().toLowerCase();const allS=JSON.parse(localStorage.getItem('students')||'[]');if(!q){filteredStudents=allS;document.getElementById('studentSearchCount').textContent='';}else{filteredStudents=allS.filter(s=>s.id.toLowerCase().includes(q)||s.name.toLowerCase().includes(q));document.getElementById('studentSearchCount').textContent='Found '+filteredStudents.length;}renderStudentList(filteredStudents);}
+        function clearStudentSearch(){document.getElementById('studentSearchInput').value='';filteredStudents=JSON.parse(localStorage.getItem('students')||'[]');document.getElementById('studentSearchCount').textContent='';renderStudentList(filteredStudents);}
+        function renderTeacherList(list){const allT=JSON.parse(localStorage.getItem('teachers')||'[]');document.getElementById('teacherList').innerHTML=list.length===0?'<p style="color:var(--text-muted);text-align:center;">No teachers</p>':list.map(x=>{const ri=allT.findIndex(t=>t.id===x.id);return `<div class="list-item"><div><strong>${x.name}</strong> | ${x.id} | ${x.subject||'N/A'} | ${(x.grades||[]).join(', ')}</div><div style="display:flex;gap:5px;"><button class="btn btn-sm btn-blue" onclick="editTeacher(${ri})">✏️</button><button class="btn btn-sm btn-red" onclick="delT(${ri})">🗑️</button></div></div>`;}).join('');}
+        function renderStudentList(list){const allS=JSON.parse(localStorage.getItem('students')||'[]');const passwords = getStudentPasswords();document.getElementById('studentList').innerHTML=list.length===0?'<p style="color:var(--text-muted);text-align:center;">No students</p>':list.map(x=>{const ri=allS.findIndex(s=>s.id===x.id);const g=(x.grades||[x.grade||'N/A']).join(', ');const tn=x.teachers?x.teachers.map(t=>t.name).join(', '):'N/A';const pass = passwords[x.id] || getStudentPassword(x.id);return `<div class="list-item"><div><strong>${x.name}</strong> | ${x.id} | ${g} | ${tn} <span class="badge badge-password">🔑 ${pass}</span></div><div style="display:flex;gap:5px;"><button class="btn btn-sm btn-blue" onclick="editStudent(${ri})">✏️</button><button class="btn btn-sm btn-red" onclick="delS(${ri})">🗑️</button></div></div>`;}).join('');}
+        function editTeacher(i){const t=JSON.parse(localStorage.getItem('teachers'));const x=t[i];const ag=['Grade 6','Grade 7','Grade 8','Grade 9','Grade 10','Grade 11'];openEditModal(`<h3>✏️ Edit Teacher</h3><div class="form-row"><div class="form-group"><label>Name</label><input type="text" id="editTName" value="${x.name}"></div><div class="form-group"><label>ID</label><input type="text" value="${x.id}" readonly></div><div class="form-group"><label>Subject</label><input type="text" id="editTSubject" value="${x.subject||''}"></div><div class="form-group"><label>Email</label><input type="email" id="editTEmail" value="${x.email||''}"></div></div><div class="form-group"><label>Grades</label><div class="checkbox-group">${ag.map(g=>`<label><input type="checkbox" class="editTGrade" value="${g}" ${(x.grades||[]).includes(g)?'checked':''}> ${g}</label>`).join('')}</div></div><div class="btn-row"><button class="btn btn-back" onclick="closeEditModal()">Cancel</button><button class="btn btn-teal" onclick="saveTeacherEdit(${i})">💾 Save</button></div>`);}
+        function saveTeacherEdit(i){const t=JSON.parse(localStorage.getItem('teachers'));t[i].name=document.getElementById('editTName').value.trim();t[i].subject=document.getElementById('editTSubject').value.trim();t[i].email=document.getElementById('editTEmail').value.trim();const g=[];document.querySelectorAll('.editTGrade:checked').forEach(c=>g.push(c.value));t[i].grades=g;localStorage.setItem('teachers',JSON.stringify(t));closeEditModal();searchTeachers();searchStudents();loadAdmin();refreshTeacherPasswordList();}
+        function editStudent(i){const s=JSON.parse(localStorage.getItem('students'));const x=s[i];const ag=['Grade 6','Grade 7','Grade 8','Grade 9','Grade 10','Grade 11'];const cg=(x.grades||[x.grade])[0];const pass = getStudentPassword(x.id);openEditModal(`<h3>✏️ Edit Student</h3><div class="form-row"><div class="form-group"><label>Name</label><input type="text" id="editSName" value="${x.name}"></div><div class="form-group"><label>ID</label><input type="text" value="${x.id}" readonly></div><div class="form-group"><label>Email</label><input type="email" id="editSEmail" value="${x.email||''}"></div><div class="form-group"><label>Phone</label><input type="tel" id="editSPhone" value="${x.phone||''}"></div></div><div class="form-group"><label>Grade</label><div class="checkbox-group">${ag.map(g=>`<label class="${cg===g?'selected':''}"><input type="radio" name="editSGrade" value="${g}" ${cg===g?'checked':''}> ${g}</label>`).join('')}</div></div><div class="form-group"><label>Password</label><input type="text" id="editSPass" value="${pass}" style="font-family:monospace;"></div><div class="btn-row"><button class="btn btn-back" onclick="closeEditModal()">Cancel</button><button class="btn btn-teal" onclick="saveStudentEdit(${i})">💾 Save</button></div>`);}
+        function saveStudentEdit(i){const s=JSON.parse(localStorage.getItem('students'));s[i].name=document.getElementById('editSName').value.trim();s[i].email=document.getElementById('editSEmail').value.trim();s[i].phone=document.getElementById('editSPhone').value.trim();const gr=document.querySelector('input[name="editSGrade"]:checked');if(gr){s[i].grade=gr.value;s[i].grades=[gr.value];}const newPass = document.getElementById('editSPass').value.trim();if(newPass && newPass.length>=3){setStudentPassword(s[i].id, newPass);}localStorage.setItem('students',JSON.stringify(s));closeEditModal();searchTeachers();searchStudents();refreshPasswordList();}
+        function delT(i){if(confirm('Delete?')){const t=JSON.parse(localStorage.getItem('teachers'));t.splice(i,1);localStorage.setItem('teachers',JSON.stringify(t));searchTeachers();loadAdmin();refreshTeacherPasswordList();}}
+        function delS(i){if(confirm('Delete?')){const s=JSON.parse(localStorage.getItem('students'));const id = s[i].id;s.splice(i,1);localStorage.setItem('students',JSON.stringify(s));const passwords = getStudentPasswords();delete passwords[id];setStudentPasswords(passwords);searchStudents();refreshPasswordList();}}
+        function openEditModal(html){document.getElementById('editModalContent').innerHTML=html;document.getElementById('editModal').style.display='flex';}
+        function closeEditModal(){document.getElementById('editModal').style.display='none';}
+
+        // ======================== EDITOR FUNCTIONS ========================
+        function editorLogin(){if(document.getElementById('editorPass').value===localStorage.getItem('editorPass')){document.getElementById('editorLoginSection').style.display='none';document.getElementById('editorDashboard').style.display='block';loadDesignerPhoto();}else showMsg('editorError','error','Wrong');}
+        function editorLogout(){document.getElementById('editorLoginSection').style.display='flex';document.getElementById('editorDashboard').style.display='none';}
+        function changePass(){const c=document.getElementById('curPass').value,n=document.getElementById('newPass').value,cp=document.getElementById('confPass').value;if(c!==localStorage.getItem('adminPass'))showMsg('passMsg','error','Wrong');else if(n!==cp)showMsg('passMsg','error','Mismatch');else if(n.length<4)showMsg('passMsg','error','Min 4');else{localStorage.setItem('adminPass',n);showMsg('passMsg','success','Updated!');['curPass','newPass','confPass'].forEach(i=>document.getElementById(i).value='');}}
+
+        // ======================== UI HELPERS ========================
+        function toggleTheme(){const c=localStorage.getItem('theme')||'light';const n=c==='light'?'dark':'light';localStorage.setItem('theme',n);applyTheme(n);}
+        function applyTheme(t){const b=document.querySelectorAll('.theme-toggle');if(t==='dark'){document.body.classList.add('dark-mode');b.forEach(x=>{x.textContent='☀️';});}else{document.body.classList.remove('dark-mode');b.forEach(x=>{x.textContent='🌙';});}}
+        function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});applyTheme(localStorage.getItem('theme')||'light');loadDesignerPhoto();}
+        function goToPortals(){resetAllDashboards();showPage('portalsPage');}
+        function openPortal(n){showPage(n+'Portal');}
+        function resetAllDashboards(){
+            ['admin','editor'].forEach(t=>{
+                const ls=document.getElementById(t+'LoginSection'),db=document.getElementById(t+'Dashboard'),btn=document.getElementById(t+'LogoutBtn');
+                if(ls)ls.style.display='flex';
+                if(db)db.style.display='none';
+                if(btn)btn.style.display='none';
+            });
+            const spwd=document.getElementById('studentPasswordSection'),ssch=document.getElementById('studentSearchSection'),sdb=document.getElementById('studentDashboard'),sfp=document.getElementById('studentFinalPassSection');
+            if(spwd)spwd.style.display='flex';
+            if(ssch)ssch.style.display='none';
+            if(sdb)sdb.style.display='none';
+            if(sfp)sfp.style.display='none';
+            const pi=document.getElementById('studentPortalPass');if(pi)pi.value='';
+            const tpwd=document.getElementById('teacherPasswordSection'),tsch=document.getElementById('teacherSearchSection'),tdb=document.getElementById('teacherDashboard'),tfp=document.getElementById('teacherFinalPassSection');
+            if(tpwd)tpwd.style.display='flex';
+            if(tsch)tsch.style.display='none';
+            if(tdb)tdb.style.display='none';
+            if(tfp)tfp.style.display='none';
+            const tpi=document.getElementById('teacherPortalPass');if(tpi)tpi.value='';
+            tchSelectedGrade = null;
+            tchSelectedMonth = null;
+            // Reset attendance
+            const attLogin = document.getElementById('attendanceLoginSection'), attDash = document.getElementById('attendanceDashboard');
+            if(attLogin)attLogin.style.display='flex';
+            if(attDash)attDash.style.display='none';
+            resetAttendanceSteps();
+        }
+        function showMsg(id,type,text){const el=document.getElementById(id);if(!el)return;el.className='msg '+type;el.textContent=text;setTimeout(()=>{if(el)el.className='msg';},3500);}
+
+        // ======================== INIT ========================
+        initStorage();
+        const teachers = JSON.parse(localStorage.getItem('teachers')||'[]');
+        const tPasswords = getTeacherPasswords();
+        teachers.forEach(t=>{ if(!tPasswords[t.id]) { tPasswords[t.id] = 'tch' + t.id.replace(/\D/g,'').slice(-3); } });
+        setTeacherPasswords(tPasswords);
+        
+        // Set today's date for attendance
+        const attDateInput = document.getElementById('attDate');
+        if(attDateInput) {
+            attDateInput.value = new Date().toISOString().split('T')[0];
+        }
+    </script>
+</body>
+</html>
